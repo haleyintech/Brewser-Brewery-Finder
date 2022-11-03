@@ -1,6 +1,6 @@
 BEGIN TRANSACTION;
 
-DROP TABLE IF EXISTS users, beer, brewery CASCADE;
+DROP TABLE IF EXISTS users, beer, brewery, beer_brewery CASCADE;
 DROP SEQUENCE IF EXISTS seq_user_id, seq_brewery_id;
 
 CREATE SEQUENCE seq_user_id
@@ -47,6 +47,11 @@ CREATE TABLE brewery (
     CONSTRAINT PK_brewery PRIMARY KEY (brewery_id)
 );
 
+CREATE TABLE beer_brewery (
+    beer_id int NOT NULL REFERENCES beer (beer_id),
+    brewery_id bigInt REFERENCES brewery (brewery_id) NOT NULL
+);
+
 --user insert
 INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
 INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
@@ -73,5 +78,10 @@ Sunday: 1–6PM
 Monday: Closed
 Tuesday: Closed
 Wednesday: 4–10PM',true);
+
+--beer_brewery insert
+
+INSERT INTO beer_brewery (beer_id, brewery_id) VALUES ((SELECT beer_id from beer WHERE name = 'Beer 1'),
+(SELECT brewery_id from brewery WHERE name='Local Ties Brewing Company'));
 
 COMMIT TRANSACTION;
