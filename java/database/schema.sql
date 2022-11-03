@@ -1,6 +1,6 @@
 BEGIN TRANSACTION;
 
-DROP TABLE IF EXISTS users, beer, brewery, beer_brewery CASCADE;
+DROP TABLE IF EXISTS users, beers, breweries, beers_breweries, reviews CASCADE;
 DROP SEQUENCE IF EXISTS seq_user_id, seq_brewery_id;
 
 CREATE SEQUENCE seq_user_id
@@ -24,7 +24,7 @@ CREATE TABLE users (
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 );
 
-CREATE TABLE beer (
+CREATE TABLE beers (
     beer_id SERIAL NOT NULL,
     name varchar(50) NOT NULL,
     description varchar(255) NOT NULL,
@@ -34,7 +34,7 @@ CREATE TABLE beer (
     CONSTRAINT PK_beer PRIMARY KEY (beer_id)
 );
 
-CREATE TABLE brewery (
+CREATE TABLE breweries (
     brewery_id bigint DEFAULT nextval('seq_brewery_id'::regclass) NOT NULL,
     name varchar(50) NOT NULL,
     history varchar(1000) NOT NULL,
@@ -47,9 +47,17 @@ CREATE TABLE brewery (
     CONSTRAINT PK_brewery PRIMARY KEY (brewery_id)
 );
 
-CREATE TABLE beer_brewery (
-    beer_id int NOT NULL REFERENCES beer (beer_id),
-    brewery_id bigInt REFERENCES brewery (brewery_id) NOT NULL
+CREATE TABLE beers_breweries (
+    beer_id int NOT NULL REFERENCES beers (beer_id),
+    brewery_id bigInt REFERENCES breweries (brewery_id) NOT NULL
+);
+
+CREATE TABLE reviews (
+    review_id SERIAL NOT NULL,
+    user_id int REFERENCES users (user_id) NOT NULL,
+    beer_id int REFERENCES beers (beer_id) NOT NULL,
+    description varchar (255) NOT NULL,
+    rating int NOT NULL    
 );
 
 --user insert
@@ -57,11 +65,11 @@ INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULi
 INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
 
 
---beer insert
-INSERT into beer(name,description,img_url,abv,type) VALUES ('Beer 1', 'Local Ties Beer', 'https://assets.untappd.com/photos/2022_08_20/ce7669c9937f9e5b9bf2e01f90351fea_raw.jpg',5.1,'Pilsner');
+--beers insert
+INSERT into beers(name,description,img_url,abv,type) VALUES ('Wolfsburg', 'Traditional German Pilsner with a little bit extra because why not?', 'https://assets.untappd.com/photos/2022_08_20/ce7669c9937f9e5b9bf2e01f90351fea_raw.jpg',5.1,'Pilsner');
 
---brewery insert
-INSERT INTO brewery(name,history,address,phone,email,img_url,hours, is_pet_friendly) 
+--breweries insert
+INSERT INTO breweries(name,history,address,phone,email,img_url,hours, is_pet_friendly) 
 VALUES ('Local Ties Brewing Company',
         'Local Ties Brewing Company is a family owned and operated taproom focused microbrewery. Our goal is to create an environment where friends and family can gather, enjoy unique craft beer, and make memories.
 
@@ -79,9 +87,14 @@ Monday: Closed
 Tuesday: Closed
 Wednesday: 4–10PM',true);
 
---beer_brewery insert
+--beers_brewery insert
 
-INSERT INTO beer_brewery (beer_id, brewery_id) VALUES ((SELECT beer_id from beer WHERE name = 'Beer 1'),
-(SELECT brewery_id from brewery WHERE name='Local Ties Brewing Company'));
+INSERT INTO beers_breweries (beer_id, brewery_id) VALUES ((SELECT beer_id from beers WHERE name = 'Wolfsburg'),
+(SELECT brewery_id from breweries WHERE name='Local Ties Brewing Company'));
+
+--review insert
+
+INSERT INTO reviews (user_id, beer_id, description, rating)
+VALUES((SELECT user_id from users WHERE username ='user'),(SELECT beer_id from beers WHERE name = 'Wolfsburg'),'Amazing Pilsner!',5);
 
 COMMIT TRANSACTION;
