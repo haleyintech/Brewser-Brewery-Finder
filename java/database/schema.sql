@@ -16,13 +16,7 @@ CREATE SEQUENCE seq_user_id
  
 
 
-CREATE TABLE users (
-	user_id int DEFAULT nextval('seq_user_id'::regclass) NOT NULL,
-	username varchar(50) NOT NULL,
-	password_hash varchar(200) NOT NULL,
-	role varchar(50) NOT NULL,
-	CONSTRAINT PK_user PRIMARY KEY (user_id)
-);
+
 
 CREATE TABLE beers (
     beer_id SERIAL NOT NULL,
@@ -47,6 +41,15 @@ CREATE TABLE breweries (
     CONSTRAINT PK_brewery PRIMARY KEY (brewery_id)
 );
 
+CREATE TABLE users (
+	user_id int DEFAULT nextval('seq_user_id'::regclass) NOT NULL,
+	username varchar(50) NOT NULL,
+	password_hash varchar(200) NOT NULL,
+    brewery_id bigint REFERENCES breweries (brewery_id),
+	role varchar(50) NOT NULL,
+	CONSTRAINT PK_user PRIMARY KEY (user_id)
+);
+
 CREATE TABLE beers_breweries (
     beer_id int NOT NULL REFERENCES beers (beer_id),
     brewery_id bigInt REFERENCES breweries (brewery_id) NOT NULL
@@ -59,10 +62,6 @@ CREATE TABLE reviews (
     description varchar (255) NOT NULL,
     rating int NOT NULL    
 );
-
---user insert
-INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
-INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
 
 
 --beers insert
@@ -86,6 +85,12 @@ Sunday: 1–6PM
 Monday: Closed
 Tuesday: Closed
 Wednesday: 4–10PM',true);
+
+--user insert
+INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
+INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
+INSERT INTO users (username,password_hash,brewery_id,role) VALUES ('brewer','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC',(SELECT brewery_id from breweries WHERE name='Local Ties Brewing Company'),'ROLE_BREWER');
+
 
 --beers_brewery insert
 
