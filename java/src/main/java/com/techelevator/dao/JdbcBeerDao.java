@@ -31,13 +31,16 @@ public class JdbcBeerDao implements BeerDao{
 
     @Override
     public Beer getBeerWithId(Long id) {
-        return null;
+        Beer beer = null;
+        String sql = "SELECT * from beers WHERE beer_id = ?;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql,id);
+        if(results.next()) {
+            beer = mapRowToBeer(results);
+        }
+        return beer;
     }
 
-    @Override
-    public List<Beer> getBeersByBreweryId(Long id) {
-        return null;
-    }
+
 
     @Override
     public void addBeer(Beer beerToAdd) {
@@ -64,7 +67,8 @@ public class JdbcBeerDao implements BeerDao{
 
     @Override
     public void deleteBeerWithId(Long id) {
-
+        String sql = "DELETE FROM beers WHERE beer_id = ?;";
+        jdbcTemplate.update(sql,id);
     }
 
     private Beer mapRowToBeer(SqlRowSet results) {

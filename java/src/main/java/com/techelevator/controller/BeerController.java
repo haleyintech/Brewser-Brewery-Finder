@@ -46,4 +46,6 @@ public class BeerController {
     public void updateBeer(@Valid @RequestBody Beer beer, @PathVariable Long id) {
         beerDao.updateBeer(beer,id);
     }
+
+
 }

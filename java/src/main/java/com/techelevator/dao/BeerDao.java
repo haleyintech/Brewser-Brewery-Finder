@@ -11,9 +11,6 @@ public interface BeerDao {
 
     Beer getBeerWithId(Long id);
 
-    //Best to be in BreweryDao?
-    List<Beer> getBeersByBreweryId(Long id);
-
     //Post Request Methods
     void addBeer(Beer beerToAdd);
 
@@ -21,8 +18,5 @@ public interface BeerDao {
 
     void updateBeer(Beer updatedBeer, Long id);
 
-    //Delete Request Methods
-
-    void deleteBeerWithId(Long id);
 
 }
