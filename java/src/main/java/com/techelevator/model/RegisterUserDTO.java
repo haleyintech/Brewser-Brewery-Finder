@@ -12,6 +12,7 @@ public class RegisterUserDTO {
     private String confirmPassword;
     @NotEmpty(message = "Please select a role for this user.")
     private String role;
+    private Long breweryId;
 
     public String getUsername() {
         return username;
@@ -43,5 +44,13 @@ public class RegisterUserDTO {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public Long getBreweryId() {
+        return breweryId;
+    }
+
+    public void setBreweryId(Long breweryId) {
+        this.breweryId = breweryId;
     }
 }

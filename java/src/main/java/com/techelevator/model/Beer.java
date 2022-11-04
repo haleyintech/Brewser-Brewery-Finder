@@ -2,6 +2,7 @@ package com.techelevator.model;
 
 import javax.validation.constraints.NotNull;
 
+
 public class Beer {
     private Long beerId;
     private Long breweryId;
