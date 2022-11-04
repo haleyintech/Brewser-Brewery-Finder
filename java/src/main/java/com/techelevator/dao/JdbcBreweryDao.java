@@ -31,7 +31,13 @@ public class JdbcBreweryDao implements BreweryDao {
 
     @Override
     public Brewery getBreweryById(Long id) {
-        return null;
+        Brewery brewery = null;
+        String sql = "SELECT * FROM breweries WHERE brewery_id = ?;";
+        SqlRowSet resutls = jdbcTemplate.queryForRowSet(sql,id);
+        if(resutls.next()) {
+            brewery = mapRowToBrewery(resutls);
+        }
+        return brewery;
     }
 
     @Override
@@ -56,13 +62,35 @@ public class JdbcBreweryDao implements BreweryDao {
 
     @Override
     public void addBrewery(Brewery brewery) {
-
+        String sql = "INSERT INTO breweries (name,history,address,phone,email,img_url,hours,is_pet_friendly) VALUES(?,?,?,?,?,?,?,?) ;";
+        jdbcTemplate.update(sql,
+                brewery.getName(),
+                brewery.getHistory(),
+                brewery.getAddress(),
+                brewery.getPhone(),
+                brewery.getEmail(),
+                brewery.getImgUrl(),
+                brewery.getHours(),
+                brewery.isPetFriendly());
     }
 
+    /**
+     * Takes the beer from the body and adds it the the beers table. Afterwards, the new beer_id is added on
+     * the beers_breweries table with the brewery that added it
+     * @param beer
+     * @param breweryId
+     */
     @Override
-    public void addBeerToBrewery(Long beerId, Long breweryId) {
-        String sql = "INSERT INTO beers_breweries (beer_id, brewery_id) VALUES (?,?);";
-        jdbcTemplate.update(sql,beerId,breweryId);
+    public void addBeerToBrewery(Beer beer, Long breweryId) {
+        String sql1 = "INSERT INTO beers (name,description,img_url,abv,type) VALUES (?,?,?,?,?) RETURNING beer_id;";
+        int beerId = jdbcTemplate.queryForObject(sql1,int.class,
+                beer.getName(),
+                beer.getDescription(),
+                beer.getImgUrl(),
+                beer.getAbv(),
+                beer.getType());
+        String sql2 = "INSERT INTO beers_breweries (beer_id, brewery_id) VALUES (?,?);";
+        jdbcTemplate.update(sql2,beerId,breweryId);
     }
 
     @Override

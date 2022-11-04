@@ -18,7 +18,7 @@ public interface BreweryDao {
     //(Only Admin)
     void addBrewery(Brewery brewery);
 
-    void addBeerToBrewery(Long beerId, Long breweryId);
+    void addBeerToBrewery(Beer beer, Long breweryId);
 
     //Put Methods (Only Admin, Brewer)
 

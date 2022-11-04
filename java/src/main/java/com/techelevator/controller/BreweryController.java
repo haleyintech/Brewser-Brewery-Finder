@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -15,11 +16,9 @@ import java.util.List;
 @PreAuthorize("isAuthenticated()")
 public class BreweryController {
 
-    private BeerDao beerDao;
     private BreweryDao breweryDao;
 
-    public BreweryController(BeerDao beerDao, BreweryDao breweryDao) {
-        this.beerDao = beerDao;
+    public BreweryController(BreweryDao breweryDao) {
         this.breweryDao = breweryDao;
     }
 
@@ -34,12 +33,25 @@ public class BreweryController {
     public List<Beer> getAllBeersWithBrewerId(@PathVariable Long id) {
         return breweryDao.getBeersWithBreweryId(id);
     }
+
+    @GetMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Brewery getBreweryById(@PathVariable Long id) {
+        return breweryDao.getBreweryById(id);
+    }
+
     //Post Requests
-    @PostMapping(value = "/{breweryId}/{beerId}")
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public void addBrewery(@RequestBody Brewery brewery) {
+        breweryDao.addBrewery(brewery);
+    }
+
+    @PostMapping(value = "/{breweryId}")
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasAnyRole('ROLE_BREWER','ROLE_ADMIN')")
-    public void addBeerToBrewery(@PathVariable Long beerId, @PathVariable Long breweryId) {
-        breweryDao.addBeerToBrewery(beerId,breweryId);
+    public void addBeerToBrewery(@Valid @RequestBody Beer beer, @PathVariable Long breweryId) {
+        breweryDao.addBeerToBrewery(beer,breweryId);
     }
     //Put Requests
     //Delete Requests
