@@ -62,4 +62,8 @@ public class BreweryController {
         breweryDao.updateBreweryWithId(brewery,id);
     }
     //Delete Requests
+    @DeleteMapping(value = "/{id}")
+    public void deleteBrewery(@PathVariable Long id) {
+        breweryDao.deleteBreweryWithId(id);
+    }
 }

@@ -107,9 +107,23 @@ public class JdbcBreweryDao implements BreweryDao {
                 brewery.isPetFriendly(),id);
     }
 
+    /**
+     * Delete the brewery with the matching id. As a result, and brewer associated with the role BREWER is changed to
+     * USER. Additionally, all brewery beers and associated reviews are also deleted
+     * @param id The id of the brewery to delete
+     */
     @Override
     public void deleteBreweryWithId(Long id) {
-
+        String updateUsers = "UPDATE users SET brewery_id = null, role = 'ROLE_USER' WHERE brewery_id = ?;";
+        jdbcTemplate.update(updateUsers,id);
+        String deleteReviews = "DELETE FROM reviews \n" +
+                "USING beers\n" +
+                "WHERE beers.brewery_id = ?;";
+        jdbcTemplate.update(deleteReviews,id);
+        String deleteBeers = "DELETE FROM beers WHERE brewery_id = ?;";
+        jdbcTemplate.update(deleteBeers,id);
+        String deleteBrewery = "DELETE FROM breweries WHERE brewery_id = ?;";
+        jdbcTemplate.update(deleteBrewery, id);
     }
 
     private Brewery mapRowToBrewery(SqlRowSet results) {
