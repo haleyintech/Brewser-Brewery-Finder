@@ -18,6 +18,8 @@ public class JdbcBreweryDao implements BreweryDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+
+
     @Override
     public List<Brewery> getAllBreweries() {
         List<Brewery> breweries = new ArrayList<>();
@@ -44,8 +46,7 @@ public class JdbcBreweryDao implements BreweryDao {
     public List<Beer> getBeersWithBreweryId(Long id) {
         List<Beer> beers = new ArrayList<>();
         String sql = "select * from beers \n" +
-                "JOIN beers_breweries on beers.beer_id = beers_breweries.beer_id\n" +
-                "JOIN breweries on breweries.brewery_id = beers_breweries.brewery_id\n" +
+                "JOIN breweries on breweries.brewery_id = beers.brewery_id\n" +
                 "where breweries.brewery_id = ?\n" +
                 ";";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql,id);
@@ -82,15 +83,14 @@ public class JdbcBreweryDao implements BreweryDao {
      */
     @Override
     public void addBeerToBrewery(Beer beer, Long breweryId) {
-        String sql1 = "INSERT INTO beers (name,description,img_url,abv,type) VALUES (?,?,?,?,?) RETURNING beer_id;";
-        int beerId = jdbcTemplate.queryForObject(sql1,int.class,
+        String sql1 = "INSERT INTO beers (name,brewery_id,description,img_url,abv,type) VALUES (?,?,?,?,?,?) RETURNING beer_id;";
+        jdbcTemplate.queryForObject(sql1,int.class,
                 beer.getName(),
+                breweryId,
                 beer.getDescription(),
                 beer.getImgUrl(),
                 beer.getAbv(),
                 beer.getType());
-        String sql2 = "INSERT INTO beers_breweries (beer_id, brewery_id) VALUES (?,?);";
-        jdbcTemplate.update(sql2,beerId,breweryId);
     }
 
     @Override
@@ -121,6 +121,7 @@ public class JdbcBreweryDao implements BreweryDao {
     private Beer mapRowToBeer(SqlRowSet results) {
         Beer beer = new Beer();
         beer.setBeerId(results.getLong("beer_id"));
+        beer.setBreweryId(results.getLong("brewery_id"));
         beer.setName(results.getString("name"));
         beer.setDescription(results.getString("description"));
         beer.setImgUrl(results.getString("img_url"));

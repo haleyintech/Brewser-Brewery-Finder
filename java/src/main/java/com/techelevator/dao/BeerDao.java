@@ -11,15 +11,5 @@ public interface BeerDao {
 
     Beer getBeerWithId(Long id);
 
-    //Post Request Methods
-    void addBeer(Beer beerToAdd);
-
-    //Put Request Methods
-
-    void updateBeer(Beer updatedBeer, Long id);
-
-    //Delete Request Methods
-
-    void deleteBeerWithId(Long id);
 
 }

@@ -4,6 +4,7 @@ import javax.validation.constraints.NotNull;
 
 public class Beer {
     private Long beerId;
+    private Long breweryId;
     @NotNull
     private String name;
     @NotNull
@@ -17,8 +18,9 @@ public class Beer {
     public Beer() {
     }
 
-    public Beer(Long beerId, String name, String description, String imgUrl, double abv, String type) {
+    public Beer(Long beerId, Long breweryId,String name, String description, String imgUrl, double abv, String type) {
         this.beerId = beerId;
+        this.breweryId = breweryId;
         this.name = name;
         this.description = description;
         this.imgUrl = imgUrl;
@@ -28,6 +30,14 @@ public class Beer {
 
     public Long getBeerId() {
         return beerId;
+    }
+
+    public Long getBreweryId() {
+        return breweryId;
+    }
+
+    public void setBreweryId(Long breweryId) {
+        this.breweryId = breweryId;
     }
 
     public void setBeerId(Long beerId) {
