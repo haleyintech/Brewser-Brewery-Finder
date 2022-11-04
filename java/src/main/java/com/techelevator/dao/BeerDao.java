@@ -18,5 +18,8 @@ public interface BeerDao {
 
     void updateBeer(Beer updatedBeer, Long id);
 
+    //Delete Request Methods
+
+    void deleteBeerWithId(Long id);
 
 }

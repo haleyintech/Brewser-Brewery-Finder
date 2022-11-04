@@ -13,9 +13,12 @@ public interface BreweryDao {
     List<Beer> getBeersWithBreweryId(Long id);
     Beer getBeerFromBreweryWithBeerId(Long id);
 
-    //Post Methods (Only Admin)
+    //Post Methods
 
+    //(Only Admin)
     void addBrewery(Brewery brewery);
+
+    void addBeerToBrewery(Long beerId, Long breweryId);
 
     //Put Methods (Only Admin, Brewer)
 
