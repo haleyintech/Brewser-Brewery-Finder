@@ -39,4 +39,11 @@ public class BeerController {
     public void addBeer(@RequestBody @Valid Beer beer) {
         beerDao.addBeer(beer);
     }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAnyRole('ROLE_BREWER','ROLE_ADMIN')")
+    public void updateBeer(@Valid @RequestBody Beer beer, @PathVariable Long id) {
+        beerDao.updateBeer(beer,id);
+    }
 }

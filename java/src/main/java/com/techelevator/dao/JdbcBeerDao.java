@@ -52,7 +52,14 @@ public class JdbcBeerDao implements BeerDao{
 
     @Override
     public void updateBeer(Beer updatedBeer, Long id) {
-
+        String sql = "UPDATE beers SET name = ?, description = ?, img_url = ?, abv = ?, type = ? WHERE beer_id = ?;";
+        jdbcTemplate.update(sql,
+                updatedBeer.getName(),
+                updatedBeer.getDescription(),
+                updatedBeer.getImgUrl(),
+                updatedBeer.getAbv(),
+                updatedBeer.getType(),
+                id);
     }
 
     @Override
