@@ -45,10 +45,10 @@ CREATE TABLE beers (
 );
 
 CREATE TABLE users (
-	user_id int DEFAULT nextval('seq_user_id'::regclass) NOT NULL,
+	user_id int DEFAULT nextval('seq_user_id'::regclass) NOT NULL,    
+    brewery_id bigint REFERENCES breweries (brewery_id),
 	username varchar(50) NOT NULL,
 	password_hash varchar(200) NOT NULL,
-    brewery_id bigint REFERENCES breweries (brewery_id),
 	role varchar(50) NOT NULL,
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 );

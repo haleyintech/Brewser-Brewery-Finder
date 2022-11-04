@@ -75,7 +75,7 @@ public class JdbcBreweryDao implements BreweryDao {
     @Override
     public void addBeerToBrewery(Beer beer, Long breweryId) {
         String sql1 = "INSERT INTO beers (name,brewery_id,description,img_url,abv,type) VALUES (?,?,?,?,?,?);";
-        jdbcTemplate.queryForObject(sql1,int.class,
+        jdbcTemplate.update(sql1,
                 beer.getName(),
                 breweryId,
                 beer.getDescription(),

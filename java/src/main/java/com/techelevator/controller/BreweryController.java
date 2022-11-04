@@ -63,6 +63,8 @@ public class BreweryController {
     }
     //Delete Requests
     @DeleteMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteBrewery(@PathVariable Long id) {
         breweryDao.deleteBreweryWithId(id);
     }
