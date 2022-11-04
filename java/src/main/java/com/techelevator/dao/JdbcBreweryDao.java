@@ -71,15 +71,10 @@ public class JdbcBreweryDao implements BreweryDao {
                 brewery.isPetFriendly());
     }
 
-    /**
-     * Takes the beer from the body and adds it the the beers table. Afterwards, the new beer_id is added on
-     * the beers_breweries table with the brewery that added it
-     * @param beer
-     * @param breweryId
-     */
+
     @Override
     public void addBeerToBrewery(Beer beer, Long breweryId) {
-        String sql1 = "INSERT INTO beers (name,brewery_id,description,img_url,abv,type) VALUES (?,?,?,?,?,?) RETURNING beer_id;";
+        String sql1 = "INSERT INTO beers (name,brewery_id,description,img_url,abv,type) VALUES (?,?,?,?,?,?);";
         jdbcTemplate.queryForObject(sql1,int.class,
                 beer.getName(),
                 breweryId,
@@ -91,7 +86,25 @@ public class JdbcBreweryDao implements BreweryDao {
 
     @Override
     public void updateBreweryWithId(Brewery brewery, Long id) {
-
+        String sql = "UPDATE breweries " +
+                "SET name = ?," +
+                "history = ?," +
+                "address = ?," +
+                "phone = ?," +
+                "email = ?," +
+                "img_url = ?," +
+                "hours = ?," +
+                "is_pet_friendly = ?" +
+                " WHERE brewery_id = ?;";
+        jdbcTemplate.update(sql,
+                brewery.getName(),
+                brewery.getHistory(),
+                brewery.getAddress(),
+                brewery.getPhone(),
+                brewery.getEmail(),
+                brewery.getImgUrl(),
+                brewery.getHours(),
+                brewery.isPetFriendly(),id);
     }
 
     @Override

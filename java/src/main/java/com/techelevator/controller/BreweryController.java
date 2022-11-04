@@ -55,5 +55,11 @@ public class BreweryController {
         breweryDao.addBeerToBrewery(beer,breweryId);
     }
     //Put Requests
+    @PutMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_BREWER')")
+    public void updateBrewery(@Valid @RequestBody Brewery brewery, @PathVariable Long id) {
+        breweryDao.updateBreweryWithId(brewery,id);
+    }
     //Delete Requests
 }
