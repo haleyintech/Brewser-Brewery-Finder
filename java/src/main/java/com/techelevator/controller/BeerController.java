@@ -2,12 +2,11 @@ package com.techelevator.controller;
 
 import com.techelevator.dao.BeerDao;
 import com.techelevator.model.Beer;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -23,7 +22,20 @@ public class BeerController {
     }
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<Beer> getAllBeers() {
         return beerDao.getAllBeers();
+    }
+
+    @GetMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Beer getBeerWithId(@PathVariable Long id) {
+        return beerDao.getBeerWithId(id);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public void addBeer(@RequestBody @Valid Beer beer) {
+        beerDao.addBeer(beer);
     }
 }

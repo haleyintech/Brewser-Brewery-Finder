@@ -41,7 +41,13 @@ public class JdbcBeerDao implements BeerDao{
 
     @Override
     public void addBeer(Beer beerToAdd) {
-
+        String sql = "INSERT INTO beers (name,description,img_url,abv,type) VALUES (?,?,?,?,?);";
+        jdbcTemplate.update(sql,
+                beerToAdd.getName(),
+                beerToAdd.getDescription(),
+                beerToAdd.getImgUrl(),
+                beerToAdd.getAbv(),
+                beerToAdd.getType());
     }
 
     @Override
