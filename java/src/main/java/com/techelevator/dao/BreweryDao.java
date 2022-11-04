@@ -11,7 +11,6 @@ public interface BreweryDao {
     List<Brewery> getAllBreweries();
     Brewery getBreweryById(Long id);
     List<Beer> getBeersWithBreweryId(Long id);
-    Beer getBeerFromBreweryWithBeerId(Long id);
 
     //Post Methods
 

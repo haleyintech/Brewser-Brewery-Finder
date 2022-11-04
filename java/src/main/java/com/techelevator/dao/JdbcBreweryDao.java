@@ -56,10 +56,6 @@ public class JdbcBreweryDao implements BreweryDao {
         return beers;
     }
 
-    @Override
-    public Beer getBeerFromBreweryWithBeerId(Long id) {
-        return null;
-    }
 
     @Override
     public void addBrewery(Brewery brewery) {

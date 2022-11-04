@@ -43,6 +43,7 @@ public class BreweryController {
     //Post Requests
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void addBrewery(@RequestBody Brewery brewery) {
         breweryDao.addBrewery(brewery);
     }
