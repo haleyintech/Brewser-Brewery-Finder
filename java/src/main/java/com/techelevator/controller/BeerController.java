@@ -35,6 +35,7 @@ public class BeerController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public void addBeer(@RequestBody @Valid Beer beer) {
         beerDao.addBeer(beer);
     }
