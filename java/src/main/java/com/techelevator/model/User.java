@@ -9,7 +9,7 @@ import java.util.Set;
 public class User {
 
    private Long id;
-   private Long brewery_id;
+   private Long breweryId;
    private String username;
    @JsonIgnore
    private String password;
@@ -26,9 +26,9 @@ public class User {
       this.activated = true;
    }
 
-   public User(Long id, Long brewery_id, String username, String password, Set<Authority> authorities) {
+   public User(Long id, Long breweryId, String username, String password, Set<Authority> authorities) {
       this.id = id;
-      this.brewery_id = brewery_id;
+      this.breweryId = breweryId;
       this.username = username;
       this.password = password;
       this.authorities = authorities;
@@ -38,12 +38,12 @@ public class User {
       return id;
    }
 
-   public Long getBrewery_id() {
-      return brewery_id;
+   public Long getBreweryId() {
+      return breweryId;
    }
 
-   public void setBrewery_id(Long brewery_id) {
-      this.brewery_id = brewery_id;
+   public void setBreweryId(Long breweryId) {
+      this.breweryId = breweryId;
    }
 
    public void setId(Long id) {
