@@ -1,22 +1,26 @@
 package com.techelevator.model;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class Brewery {
     private Long breweryId;
-    @NotNull
+    @NotEmpty(message = "Please provide a name for the brewery.")
     private String name;
-    @NotNull
+    @NotEmpty(message = "Please provide a brief history.")
     private String history;
-    @NotNull
+    @NotEmpty(message = "Please provide an address. ")
     private String address;
-    @NotNull
+    @NotEmpty(message = "Please provide a phone number.")
+    @Size(min = 10, max = 0, message = "Only include the 10 digits for the number.")
     private String phone;
-    @NotNull
+    @NotEmpty(message = "Please provide an email address.")
     private String email;
-    @NotNull
+    @NotEmpty(message = "Please provide an image url.")
     private String imgUrl;
-    @NotNull
+    @NotEmpty(message = "Please provide the working hours of the brewery.")
     private String hours;
     @NotNull
     private boolean isPetFriendly;
