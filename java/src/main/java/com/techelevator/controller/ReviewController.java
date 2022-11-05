@@ -27,6 +27,18 @@ public class ReviewController {
         return reviewDao.getAllReviews();
     }
 
+    @GetMapping(value = "/beer/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Review> getReviewsByBeerId(@PathVariable Long id) {
+        return reviewDao.getReviewsByBeerId(id);
+    }
+
+    @GetMapping(value = "users/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Review> getReviewsByUserId(Long id) {
+        return reviewDao.getReviewsByUserId(id);
+    }
+
     @GetMapping(value = "/principal")
     @ResponseStatus(HttpStatus.OK)
     public List<Review> getCurrentUsersReviews(Principal principal) {
@@ -39,5 +51,16 @@ public class ReviewController {
         reviewDao.createReview(review, principal.getName());
     }
     //Put Requests
+
+    @PutMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void updateReview(@RequestBody Review review, @PathVariable Long id) {
+        reviewDao.updateReview(review,id);
+    }
     //Delete Requests
+    @DeleteMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void deleteReview(@PathVariable Long id) {
+        reviewDao.deleteReview(id);
+    }
 }
