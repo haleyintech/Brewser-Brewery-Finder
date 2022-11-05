@@ -71,6 +71,29 @@ public class AuthenticationController {
         return userDao.findAll();
     }
 
+    @GetMapping(value = "/users/user")
+    @ResponseStatus(HttpStatus.OK)
+    public User findByUsername(@RequestParam String username) {
+        return userDao.findByUsername(username);
+    }
+
+    @GetMapping(value = "/users/user/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public User getUserById(@PathVariable Long id) {
+        return userDao.getUserById(id);
+    }
+
+    @GetMapping(value = "/users/id/")
+    @ResponseStatus(HttpStatus.OK)
+    public int findIdByUsername(@RequestParam String username) {
+        return userDao.findIdByUsername(username);
+    }
+    @GetMapping(value = "/users/brewery-id/")
+    @ResponseStatus(HttpStatus.OK)
+    public Long findBreweryIdByUsername(@RequestParam String username) {
+        return userDao.findBreweryIdByUsername(username);
+    }
+
     /**
      * Object to return as body in JWT Authentication.
      */

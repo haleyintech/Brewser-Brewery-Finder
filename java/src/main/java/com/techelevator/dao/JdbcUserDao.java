@@ -27,6 +27,10 @@ public class JdbcUserDao implements UserDao {
     public int findIdByUsername(String username) {
         return jdbcTemplate.queryForObject("select user_id from users where username = ?", int.class, username);
     }
+    @Override
+    public Long findBreweryIdByUsername(String username) {
+        return jdbcTemplate.queryForObject("select brewery_id from users where username = ?", Long.class, username);
+    }
 
 	@Override
 	public User getUserById(Long userId) {
