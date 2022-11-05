@@ -1,5 +1,6 @@
 package com.techelevator.model;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 
@@ -8,12 +9,13 @@ public class Beer {
     private Long breweryId;
     @NotNull
     private String name;
-    @NotNull
+    @NotEmpty(message = "Please provide a description.")
     private String description;
-    @NotNull
+    @NotEmpty(message = "Please provide an image url.")
     private String imgUrl;
     @NotNull
     private double abv;
+    @NotEmpty(message = "Please specify the beer's type.")
     private String type;
 
     public Beer() {

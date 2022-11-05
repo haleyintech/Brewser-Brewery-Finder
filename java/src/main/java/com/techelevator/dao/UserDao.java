@@ -14,6 +14,7 @@ public interface UserDao {
 
     int findIdByUsername(String username);
 
+    Long findBreweryIdByUsername(String username);
+
     boolean create(Long breweryId, String username, String password, String role);
-//    boolean createWithBreweryId(String username, Long breweryId, String password, String role);
 }

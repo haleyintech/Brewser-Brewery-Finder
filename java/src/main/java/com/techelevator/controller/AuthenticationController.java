@@ -21,6 +21,8 @@ import com.techelevator.model.UserAlreadyExistsException;
 import com.techelevator.security.jwt.JWTFilter;
 import com.techelevator.security.jwt.TokenProvider;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin
 public class AuthenticationController {
@@ -61,6 +63,35 @@ public class AuthenticationController {
         } catch (UsernameNotFoundException e) {
             userDao.create(newUser.getBreweryId(), newUser.getUsername(),newUser.getPassword(), newUser.getRole());
         }
+    }
+
+    @GetMapping(value = "/users")
+    @ResponseStatus(HttpStatus.OK)
+    public List<User> getAllUsers() {
+        return userDao.findAll();
+    }
+
+    @GetMapping(value = "/users/user")
+    @ResponseStatus(HttpStatus.OK)
+    public User findByUsername(@RequestParam String username) {
+        return userDao.findByUsername(username);
+    }
+
+    @GetMapping(value = "/users/user/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public User getUserById(@PathVariable Long id) {
+        return userDao.getUserById(id);
+    }
+
+    @GetMapping(value = "/users/id/")
+    @ResponseStatus(HttpStatus.OK)
+    public int findIdByUsername(@RequestParam String username) {
+        return userDao.findIdByUsername(username);
+    }
+    @GetMapping(value = "/users/brewery-id/")
+    @ResponseStatus(HttpStatus.OK)
+    public Long findBreweryIdByUsername(@RequestParam String username) {
+        return userDao.findBreweryIdByUsername(username);
     }
 
     /**

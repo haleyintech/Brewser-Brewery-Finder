@@ -27,6 +27,10 @@ public class JdbcUserDao implements UserDao {
     public int findIdByUsername(String username) {
         return jdbcTemplate.queryForObject("select user_id from users where username = ?", int.class, username);
     }
+    @Override
+    public Long findBreweryIdByUsername(String username) {
+        return jdbcTemplate.queryForObject("select brewery_id from users where username = ?", Long.class, username);
+    }
 
 	@Override
 	public User getUserById(Long userId) {
@@ -106,34 +110,11 @@ public class JdbcUserDao implements UserDao {
         return userCreated;
     }
 
-//    @Override
-//    public boolean createWithBreweryId(String username, Long breweryId, String password, String role) {
-//        boolean userCreated = false;
-//
-//        // create user
-//        String insertUser = "insert into users (brewery_id, username,password_hash,role) values(?,?,?,?)";
-//        String password_hash = new BCryptPasswordEncoder().encode(password);
-//        String ssRole = "ROLE_" + role.toUpperCase();
-//
-//        GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
-//        String id_column = "user_id";
-//        userCreated = jdbcTemplate.update(con -> {
-//                    PreparedStatement ps = con.prepareStatement(insertUser, new String[]{id_column});
-//                    ps.setLong(1,breweryId);
-//                    ps.setString(2, username);
-//                    ps.setString(3, password_hash);
-//                    ps.setString(4, ssRole);
-//                    return ps;
-//                }
-//                , keyHolder) == 1;
-//        int newUserId = (int) keyHolder.getKeys().get(id_column);
-//
-//        return userCreated;
-//    }
 
     private User mapRowToUser(SqlRowSet rs) {
         User user = new User();
         user.setId(rs.getLong("user_id"));
+        user.setBreweryId(rs.getLong("brewery_id"));
         user.setUsername(rs.getString("username"));
         user.setPassword(rs.getString("password_hash"));
         user.setAuthorities(rs.getString("role"));
