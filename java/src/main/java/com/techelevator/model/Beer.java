@@ -6,7 +6,6 @@ import javax.validation.constraints.NotNull;
 
 public class Beer {
     private Long beerId;
-    @NotNull
     private Long breweryId;
     @NotNull
     private String name;
