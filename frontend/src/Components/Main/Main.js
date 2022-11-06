@@ -3,6 +3,12 @@ import {Switch, Route, Redirect, Link} from 'react-router-dom'
 import Login from '../Login/Login'
 import Register from '../Register/Register'
 import Home from '../Home/Home'
+import Beers from '../Beers/Beers'
+import Breweries from '../Breweries/Breweries'
+import Reviews from '../Reviews/Reviews'
+import BeerInfo from '../Beers/BeerInfo'
+import BreweryInfo from '../Breweries/BreweryInfo'
+import ReviewInfo from '../Reviews/ReviewInfo'
 import {addToken, deleteUser} from '../../Redux/actionCreators'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
@@ -30,23 +36,32 @@ class Main extends Component {
     }
 
     render(){
+        // set default page based on user role
+        let defaultUrl = "/breweries";
+        let loginUrl = "/login";
         return(
             <div>
-                {this.props.token.token !== undefined ?
+                {(this.props.token.token !== undefined && this.props.location.pathname===loginUrl) ?
                         <div>
-                            <Link to='/home'>Home | </Link>
-                            <Link to='/login' onClick={this.handleLogout}>logout</Link> 
-                            <Redirect to='/home'/>
-
+                            <Redirect to={defaultUrl}/>
                         </div>  
-                    : 
-                        <Link to='/login'>Home | </Link>
+                    : null
+                }
+                {(this.props.token.token === undefined && this.props.location.pathname!=="/register") ?
+                        <div>
+                            <Redirect to={loginUrl}/>
+                        </div>  
+                    : null
                 }
                 <Switch>
-                    <Route path='/login' component={() => <Login/>}/>
+                    <Route path={loginUrl} component={() => <Login/>}/>
                     <Route path='/register'component={() => <Register/>}/>
-                    <Route path='/home' component={this.props.token.token !== undefined ? () => <Home/> : null}/>
-                    <Redirect to='/login'/>
+                    <Route path='/breweries' component={() => <Breweries/>}/>
+                    <Route path='/brewery-info' component={() => <BreweryInfo/>}/>
+                    <Route path='/beers' component={() => <Beers/>}/>
+                    <Route path='/beer-info' component={() => <BeerInfo/>}/>
+                    <Route path='/reviews' component={() => <Reviews/>}/>
+                    <Route path='/review-info' component={() => <Reviews/>}/>
                 </Switch>
             </div>
         )
