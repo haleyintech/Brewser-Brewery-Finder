@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @PreAuthorize("isAuthenticated()")
+@CrossOrigin
 @RequestMapping(value = "/reviews")
 public class ReviewController {
 

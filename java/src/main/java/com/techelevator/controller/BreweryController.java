@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/breweries")
 @PreAuthorize("isAuthenticated()")
+@CrossOrigin
 public class BreweryController {
 
     private BreweryDao breweryDao;
