@@ -1,33 +1,30 @@
 import axios from 'axios'
 import React from 'react'
 import {Link} from 'react-router-dom'
-import { baseUrl } from '../../Shared/baseUrl'
+import {baseUrl} from '../../Shared/baseUrl'
 
 export default function Register() {
     const [formData, setFormData] = React.useState({
-            username: '',
-            password: '',
-            confirmPassword: '',
-            role: 'USER',
-            breweryId: '',
+        username: '',
+        password: '',
+        confirmPassword: '',
+        role: 'USER',
+        breweryId: ''
     })
 
-    
 
     function handleInputChange(event) {
-        event.preventDefault()
-        const {name,value} = event.target;
+        const {name, value} = event.target;
         setFormData(prevState => {
             return {
                 ...prevState,
-                [name] : value
+                [name]: value
             }
         })
     }
 
-    function handleSubmit() {
-        //Change BreweryId back to null if user registers as 'beer lover'
-        if(formData.role === "USER") {
+    function handleSubmit() { // Change BreweryId back to null if user registers as 'beer lover'
+        if (formData.role === "USER") {
             formData.breweryId = ""
         }
         const data = {
@@ -37,107 +34,81 @@ export default function Register() {
             role: formData.role,
             breweryId: formData.breweryId
         }
-        
 
-        if(formData.password !== formData.confirmPassword) {
+
+        if (formData.password !== formData.confirmPassword) {
             alert("Password and Confirm Password must match!")
-        }        
-
-        else {
-            axios.post(baseUrl + "/register",data)
-            .then(response => {
+        } else {
+            axios.post(baseUrl + "/register", data).then(response => {
                 console.log(response.status)
-                if(response.status === 201) {
+                if (response.status === 201) {
                     alert("Registration Complete. Return to Login Screen to continue.")
-                }
-                else {
+                } else {
                     throw new Error("Error")
                 }
-            })
-            .catch(error => {
+            }).catch(error => {
                 console.log(error.response)
-                alert(`Brewery with Brewery ID: ${formData.breweryId} does not exist. Please provide a proper ID.`)
+                alert("Invalid Entry. Make sure all fields are filled with proper values.")
             })
-            
-        }
-            
-        
 
-        
+        }
+
+
     }
+
 
     console.log(formData)
 
-  return (
-    <div>
-                 <h1>Create Account</h1>
-                 <fieldset className='experience'>
-                     <legend>Choose your Experience</legend>
-                     <input className="experience--radio" 
-                        type="radio" 
-                        name="role"
-                        value="USER"                         
-                        onChange={handleInputChange}      
-                        checked={formData.role === "USER"}                   
-                        />                    
-                    <label htmlFor='user'>Beer Lover</label>
-                    <input className="experience--radio" 
-                        type="radio" 
-                        name ="role"
-                        value="BREWER"                         
-                        onChange={handleInputChange}    
-                        checked={formData.role ==="BREWER"}                      
-                        />
-                    <label htmlFor='brewer'>Brewer</label>
-                </fieldset>
-                <label className='sr-only'>Brewery Id</label>
-                {formData.role === "BREWER" && <input 
-                    type="number"
-                    id="breweryId"
-                    name="breweryId"
-                    value={formData.breweryId}
-                    className='form-control'
-                    placeholder='Brewery Id'
-                    v-model="user.breweryId"
-                    onChange={handleInputChange}
+    return (
+        <div>
+            <h1>Create Account</h1>
+            <fieldset className='experience'>
+                <legend>Choose your Experience</legend>
+                <label>
+                    <input className="experience--radio" type="radio" name="role" value="USER"
+                        onChange={handleInputChange}
+                        checked={
+                            formData.role === "USER"
+                        }/>
+                    Beer Lover
+                </label>
+                <label>
+                    <input className="experience--radio" type="radio" name="role" value="BREWER"
+                        onChange={handleInputChange}
+                        checked={
+                            formData.role === "BREWER"
+                        }/>
+                    Brewer
+                </label>
 
-                />}
-                <label class="sr-only">Username</label>
-                <input
-                    type="text"
-                    id="username"
-                    name="username"
-                    class="form-control"
-                    placeholder="Username"
-                    v-model="user.username"
-                    onChange={handleInputChange}
-                    required
-                />
-                <label class="sr-only">Password</label>
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    class="form-control"
-                    placeholder="Password"
-                    v-model="user.password"
-                    onChange={handleInputChange}
-                    required
-                />
-                <input
-                    type="password"
-                    id="password-confirm"
-                    name="confirmPassword"
-                    class="form-control"
-                    placeholder="Confirm Password"
-                    v-model="user.password"
-                    onChange={handleInputChange}
-                    required
-                />
-                <Link to="/login">Have an account?</Link>
-                <button type="submit" onClick={handleSubmit}>Sign in</button>
-            </div>
-  )
+            </fieldset>
+            <label className='sr-only'>Brewery Id</label>
+            {
+            formData.role === "BREWER" && <input type="number" id="breweryId" name="breweryId"
+                value={
+                    formData.breweryId
+                }
+                className='form-control'
+                placeholder='Brewery Id'
+                v-model="user.breweryId"
+                onChange={handleInputChange}/>
+        }
+            <label class="sr-only">Username</label>
+            <input type="text" id="username" name="username" class="form-control" placeholder="Username" v-model="user.username"
+                onChange={handleInputChange}
+                required/>
+            <label class="sr-only">Password</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Password" v-model="user.password"
+                onChange={handleInputChange}
+                required/>
+            <input type="password" id="password-confirm" name="confirmPassword" class="form-control" placeholder="Confirm Password" v-model="user.password"
+                onChange={handleInputChange}
+                required/>
+            <Link to="/login">Have an account?</Link>
+            <button type="submit"
+                onClick={handleSubmit}>Sign in</button>
+        </div>
+    )
 }
 
 
@@ -152,12 +123,12 @@ export default function Register() {
 //             role: '',
 //             breweryId: null,
 //         }
-        
+
 //     }
 
 
 //     handleInputChange = (event) => {
-//         event.preventDefault()        
+//         event.preventDefault()
 //         const {name,value} = event.target;
 //         this.setState({
 //             ...this.state,
@@ -181,23 +152,23 @@ export default function Register() {
 //                 <h1>Create Account</h1>
 //                 <fieldset className='experience'>
 //                     <legend>Choose your Experience</legend>
-//                     <input className="experience--radio" 
-//                         type="radio" 
-//                         value="USER" 
-//                         onChange={this.handleInputChange} 
+//                     <input className="experience--radio"
+//                         type="radio"
+//                         value="USER"
+//                         onChange={this.handleInputChange}
 //                         checked={this.state.role === "USER"}
-//                         name="role"/>                    
+//                         name="role"/>
 //                     <label htmlFor='user'>Beer Lover</label>
-//                     <input className="experience--radio" 
-//                         type="radio" 
-//                         value="BREWER" 
-//                         onChange={this.handleInputChange} 
-//                         checked={this.state.role ==="BREWER"} 
+//                     <input className="experience--radio"
+//                         type="radio"
+//                         value="BREWER"
+//                         onChange={this.handleInputChange}
+//                         checked={this.state.role ==="BREWER"}
 //                         name ="role"/>
 //                     <label htmlFor='brewer'>Brewer</label>
 //                 </fieldset>
 //                 <label className='sr-only'>Brewery Id</label>
-//                 {this.state.role === "BREWER" && <input 
+//                 {this.state.role === "BREWER" && <input
 //                     type="number"
 //                     id="breweryId"
 //                     name="breweryId"
