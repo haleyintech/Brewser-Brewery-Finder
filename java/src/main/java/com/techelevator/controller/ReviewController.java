@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
@@ -48,14 +49,14 @@ public class ReviewController {
     //Post Requests
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createReview(@RequestBody Review review, Principal principal) {
+    public void createReview(@RequestBody @Valid Review review, Principal principal) {
         reviewDao.createReview(review, principal.getName());
     }
     //Put Requests
 
     @PutMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void updateReview(@RequestBody Review review, @PathVariable Long id) {
+    public void updateReview(@RequestBody @Valid Review review, @PathVariable Long id) {
         reviewDao.updateReview(review,id);
     }
     //Delete Requests
