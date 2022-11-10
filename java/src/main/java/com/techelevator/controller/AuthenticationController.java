@@ -56,12 +56,17 @@ public class AuthenticationController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public void register(@Valid @RequestBody RegisterUserDTO newUser) {
+    public ResponseEntity<String> register(@Valid @RequestBody RegisterUserDTO newUser) {
         try {
             User user = userDao.findByUsername(newUser.getUsername());
             throw new UserAlreadyExistsException();
         } catch (UsernameNotFoundException e) {
-            userDao.create(newUser.getBreweryId(), newUser.getUsername(),newUser.getPassword(), newUser.getRole());
+            try {
+                userDao.create(newUser.getBreweryId(), newUser.getUsername(), newUser.getPassword(), newUser.getRole());
+                return ResponseEntity.status(HttpStatus.CREATED).body("User Registered Successfully");
+            } catch(Exception exception) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid Brewery ID");
+            }
         }
     }
 

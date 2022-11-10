@@ -1,5 +1,7 @@
 package com.techelevator.model;
 
+import org.springframework.stereotype.Component;
+
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -13,8 +15,7 @@ public class Brewery {
     private String history;
     @NotEmpty(message = "Please provide an address. ")
     private String address;
-    @NotEmpty(message = "Please provide a phone number.")
-    @Size(min = 10, max = 0, message = "Only include the 10 digits for the number.")
+    @Size(min = 10, message = "Only include the 10 digits for the number.")
     private String phone;
     @NotEmpty(message = "Please provide an email address.")
     private String email;
