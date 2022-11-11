@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { baseUrl } from '../../Shared/baseUrl';
 import React from 'react';
-
+import MainMenu from '../../Shared/MainMenu';
 
 export default class Beers extends React.Component {
+    
     constructor(props) {
         super(props)
         this.state = {
@@ -33,16 +34,21 @@ export default class Beers extends React.Component {
                     console.log(beer.beerId)
                     return(
                     <>
+                    
                     <div key={beer.beerId}>
 
                
                         <p>Beer Name: {beer.name}</p>
                         <p>Brewery ID: (Can we change this to Brewery Name?): {beer.breweryId}</p>
                         <p>Beer Description: {beer.description}</p>
-                        <p>Beer ABV (% Alcohol By Volume){beer.abv}</p>
+                        <p>Alcohol By Volume (%) = {beer.abv}</p>
                         <p>Beer Type {beer.type}</p>
-                        <img>{beer.img_url}</img>
-                    
+                        <img src={beer.imgUrl} />
+
+                            
+
+
+                    <MainMenu />
                     </div>
                     
                     </>     
