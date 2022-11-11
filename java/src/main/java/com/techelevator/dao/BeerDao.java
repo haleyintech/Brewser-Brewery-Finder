@@ -12,5 +12,11 @@ public interface BeerDao {
 
     Beer getBeerWithId(Long id);
 
+    //Put Methods
+    void updateBeer(Beer beer, Long id);
+
+    //Delete Methods
+    void deleteBeer(Long id);
+
 
 }
