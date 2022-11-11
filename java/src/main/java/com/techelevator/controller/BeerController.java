@@ -21,6 +21,7 @@ public class BeerController {
         this.beerDao = beerDao;
     }
 
+    //GET Requests
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Beer> getAllBeers() {
@@ -31,6 +32,22 @@ public class BeerController {
     @ResponseStatus(HttpStatus.OK)
     public Beer getBeerWithId(@PathVariable Long id) {
         return beerDao.getBeerWithId(id);
+    }
+
+    //PUT Requests
+    @PutMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_BREWER')")
+    public void updateBeer(@Valid @RequestBody Beer beer, @PathVariable Long id) {
+        beerDao.updateBeer(beer,id);
+    }
+
+    //Delete Requests
+    @DeleteMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_BREWER')")
+    public void deleteBeer(@PathVariable Long id) {
+        beerDao.deleteBeer(id);
     }
 
 
