@@ -8,6 +8,7 @@ public interface BeerDao {
 
     //Get Request Methods
     List<Beer> getAllBeers();
+    //Should be an annotation
 
     Beer getBeerWithId(Long id);
 
