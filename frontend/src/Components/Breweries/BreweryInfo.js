@@ -17,7 +17,7 @@ function BreweryInfo(props) {
         "email": "",
         "imgUrl": "",
         "hours": "",
-        "isPetFriendly": true
+        "petFriendly": true
     };
 
     const [brewery, setBrewery] = useState(emptyBrewery);
@@ -49,10 +49,13 @@ function BreweryInfo(props) {
 
     // update brewery in state for each change in every form element
     function handleInputChange(event) {
-        event.preventDefault()
+        let value = event.target.value;
+        if (event.target.type && event.target.type === "checkbox") {
+            value = event.target.checked;
+        }
         setBrewery({
             ...brewery,
-            [event.target.name]: event.target.value
+            [event.target.name]: value
         })
     }
 
@@ -99,7 +102,7 @@ function BreweryInfo(props) {
                 v-model="brewery.name"
                 onChange={handleInputChange}
                 value={brewery.name}
-                readOnly={brewery.breweryId!==0}
+                readOnly={brewery.breweryId !== 0}
             />
             <label className="label">History</label>
             <input
@@ -173,14 +176,15 @@ function BreweryInfo(props) {
                 onChange={handleInputChange}
                 value={brewery.hours}
                 required
-            /> 
+            />
             <div>
                 <input type="checkbox"
-                    id="isPetFriendly"
-                    name="isPetFriendly"
-                    v-model="brewery.isPetFriendly"
+                    id="petFriendly"
+                    name="petFriendly"
+                    className="form-check-input me-2"
+                    v-model="brewery.petFriendly"
                     onChange={handleInputChange}
-                    value={brewery.isPetFriendly}
+                    checked={brewery.petFriendly}
                 />
                 <label className="label">Pet Friendly</label>
             </div>
