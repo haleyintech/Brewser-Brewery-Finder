@@ -19,6 +19,7 @@ function BeerInfo(props) {
     };
 
     const [beer, setBeer] = useState(emptyBeer);
+    const [breweryName, setBreweryName] = useState("");
     // get token and current user from redux store
     const token = useSelector(state => state.token.token);
     const user = useSelector(state => state.user);
@@ -29,15 +30,17 @@ function BeerInfo(props) {
         getData();
     }, [token]);
 
+    useEffect(getBreweryName,[beer]);
+
     async function getData() {
         try {
             // get beer from web api using the query string passed to the page
-            let response = { data: emptyBeer};
+            let response = { data: emptyBeer };
             // check parameter from search string
             if (window.location.search) {
                 // if brewery id is passed then assume that admin or brewer 
                 // wants to add a new beer
-                if(beer.breweryId===0) {
+                if (beer.breweryId === 0) {
                     //get id after ?
                     let id = window.location.search.substring(1);
                     response = await axios.get(baseUrl + "/beers/" + id);
@@ -67,27 +70,53 @@ function BeerInfo(props) {
             //save to server
             //if id is zero then create (post) a new beer
             if (beer.beerId === 0) {
-                await axios.post(baseUrl + "/breweries/"+beer.breweryId, beer);
+                await axios.post(baseUrl + "/breweries/" + beer.breweryId, beer);
             } else {
                 // else update the existing record
                 await axios.put(baseUrl + "/beers/" + beer.beerId, beer);
             }
 
             // then redirect to list of beers
-            window.location = "/beers?breweryId="+beer.breweryId;
+            redirectToBeers();
         } catch (ex) {
             alert(ex);
         }
     }
-    function handleDelete(event) {
-        return
+    async function handleDelete(event) {
+        event.preventDefault();
+        try {
+            //delete from server
+            //if id is zero then show an error
+            if (beer.beerId === 0) {
+                alert("Beer id is required for delete")
+            } else {
+                // else update the existing record
+                await axios.delete(baseUrl + "/beers/" + beer.beerId);
+            }
+
+            // then redirect to list of beers
+            redirectToBeers();
+        } catch (ex) {
+            alert(ex);
+        }
     }
 
     function getBreweryId() {
-        if(window.location.search && window.location.search.indexOf("?breweryId=")>=0) {
+        if (window.location.search && window.location.search.indexOf("?breweryId=") >= 0) {
             return window.location.search.substring(11);
         } else {
             return "0";
+        }
+    }
+
+    function redirectToBeers() {
+        window.history.back();
+    }
+
+    async function getBreweryName() {
+        if(beer.breweryId>0) {
+            let response = await axios.get(baseUrl + "/breweries/" + beer.breweryId);
+            setBreweryName(response.data.name);
         }
     }
     // check if current user can edit the form
@@ -103,7 +132,16 @@ function BeerInfo(props) {
     return (
         <div>
             <MainMenu />
-            <div>BeerInfo component</div>
+            <div><h1>Beer Information</h1></div>
+            <label className="label">Brewery Name</label>
+            <input
+                type="text"
+                id="breweryName"
+                name="breweryName"
+                className="form-control"
+                value={breweryName}
+                readOnly={true}
+            />
             <label className="label">Beer Name</label>
             <input
                 type="text"
@@ -174,12 +212,14 @@ function BeerInfo(props) {
                     ) : null
                 }
                 <div>
-                    <Link to={"/beers"+(beer.breweryId>0?"?breweryId="+(user.authorities[0].name==="ROLE_ADMIN"?beer.breweryId:user.breweryId):"")}><button className="button" type="cancel">Cancel</button></Link>
+                    <button className="button" type="cancel" onClick={redirectToBeers}>Cancel</button>
                 </div>
                 <div></div>
-                <div>
-                    <button className="button" type="cancel" onClick={handleDelete}>Delete</button>
-                </div>
+                {beer.beerId > 0 ? (
+                    <div>
+                        <button className="button" type="cancel" onClick={handleDelete}>Delete</button>
+                    </div>
+                ) : null}
             </div>
         </div>
     )
