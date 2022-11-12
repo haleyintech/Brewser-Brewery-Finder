@@ -82,6 +82,27 @@ function BreweryInfo(props) {
             alert(ex);
         }
     }
+    async function handleDelete(event) {
+        event.preventDefault();
+        try {
+            //delete from server
+            //if id is zero then show an error
+            if (brewery.breweryId === 0) {
+                alert("Brewery id is required for delete")
+            } else {
+                // else update the existing record
+                await axios.delete(baseUrl + "/breweries/" + brewery.breweryId);
+            }
+
+            // then redirect to list of breweries
+            redirectToCaller();
+        } catch (ex) {
+            alert(ex);
+        }
+    }
+    function redirectToCaller() {
+        window.history.back();
+    }
     // check if current user can edit the form
     let isEditable = false;
     let role = user.authorities[0]
@@ -187,8 +208,8 @@ function BreweryInfo(props) {
                             </div>
                         </div>
                         <div className="col">
-                            <div><img className="img-fluid img-brewery-details" src={brewery.imgUrl} /></div>
-                            <label className="label">History</label>
+                            <div><img className="img-fluid img-brewery-details rounded" src={brewery.imgUrl} /></div>
+                            <label className="label mt-2">History</label>
                             <textarea
                                 id="history"
                                 name="history"
@@ -197,7 +218,7 @@ function BreweryInfo(props) {
                                 v-model="brewery.history"
                                 onChange={handleInputChange}
                                 value={brewery.history}
-                                rows="4"
+                                rows="8"
                                 required
                             />
                         </div>
@@ -211,12 +232,16 @@ function BreweryInfo(props) {
                             ) : null
                         }
                         <div>
-                            <Link to="/breweries"><button className="btn btn-primary" type="cancel">Cancel</button></Link>
+                            <button className="btn btn-primary" type="cancel" onClick={redirectToCaller}>Cancel</button>
                         </div>
-                        <div></div>
                         <div>
                             <Link to={"/mybeers?breweryId=" + brewery.breweryId}><button className="btn btn-primary" type="cancel">MyBeers</button></Link>
                         </div>
+                        {role.name === "ROLE_ADMIN" && brewery.breweryId > 0 ? (
+                            <div className='ms-3'>
+                                <button className="btn btn-primary" type="cancel" onClick={handleDelete}>Delete</button>
+                            </div>
+                        ) : null}
                     </div>
                 </div>
             </div>
