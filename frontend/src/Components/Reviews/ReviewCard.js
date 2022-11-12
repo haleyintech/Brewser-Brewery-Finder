@@ -4,6 +4,9 @@ import axios from 'axios';
 import { setAuthHeader } from '../../Redux/token';
 import { useSelector } from 'react-redux';
 import Rating from '@mui/material/Rating';
+import { Link } from 'react-router-dom';
+import FilledBeerIcon from '../../assets/FilledBeerIcon';
+import EmptyBeerIcon from '../../assets/EmptyBeerIcon';
 
 
 export default function ReviewCard(props) {
@@ -13,6 +16,8 @@ export default function ReviewCard(props) {
     
     const token = useSelector(state=>state.token.token);
     const user = useSelector(state=>state.user);
+
+   
 
     React.useEffect(()=>{
         setAuthHeader(token)
@@ -44,12 +49,13 @@ export default function ReviewCard(props) {
 
 
   return (
-    <>
-        <img className='review--img' src={reviewedBeer.imgUrl} />
-        <p className='review--name'>Beer: {reviewedBeer.name}</p>
-        <p className='review--reviewer'>Reviewer: {owner.username}</p>
-        <Rating name="read-only" className='review--rating' value={props.rating} readOnly precision={0.5}/>
-        <textarea className='review--description' readOnly>{props.description}</textarea>
-    </>
+    <div className='review card' >
+        <img className="img-fluid img-brewery-details" src={reviewedBeer.imgUrl} />
+        <div className='review-body card-body' >
+            <h5 className='review-title card-title'><Link to={"/beer-info?" + reviewedBeer.beerId}>{reviewedBeer.name}</Link></h5>
+            <Rating icon={<FilledBeerIcon />} emptyIcon={<EmptyBeerIcon/>} name="read-only" className='review-rating' value={props.rating} readOnly precision={0.5}/>
+            <p className='review-text card-text'>{props.description}</p>
+        </div>
+    </div>
   )
 }

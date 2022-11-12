@@ -30,7 +30,7 @@ function Reviews(props) {
     }
 
     const reviewElements = reviews.map(review=>{
-        return (<ReviewCard 
+        return (<ReviewCard
             key={review.reviewId}
             userId={review.userId}
             beerId={review.beerId}
@@ -41,7 +41,10 @@ function Reviews(props) {
     return (
         <div>
             <MainMenu/>
+            <h3>Beer Reviews</h3>
+            <div className='reviews row'>
             {reviewElements}
+            </div>
         </div>
     )
 }
