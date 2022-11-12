@@ -15,16 +15,24 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 function MainMenu(props) {
-    const handleLogout = () => {
-        props.addToken("")
-        props.deleteUser()
+    const handleLogout = (event) => {
+        event.preventDefault();
+        props.addToken("");
+        props.deleteUser();
+        window.location="/login"
     }
     return (
-        <div>
-            <Link to='/breweries'>Breweries | </Link>
-            <Link to='/beers'>Beers | </Link>
-            <Link to='/reviews'>Reviews | </Link>
-            <Link to='/login' onClick={handleLogout}>Logout</Link>
+        <div className='mainMenu'>
+            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                <Link className="navbar-brand ms-2" to="/">Project Name</Link>
+                <div>
+                <Link to='/breweries'><button className="btn btn-secondary ms-4 me-2" type="button">Breweries</button></Link>
+                <Link to='/beers'><button className="btn btn-secondary me-2" type="button">Beers</button></Link>
+                <Link to='/reviews'><button className="btn btn-secondary me-2" type="button">Reviews</button></Link>
+                <button className="btn btn-secondary ms-2 me-2" type="button" onClick={handleLogout}>Logout</button>
+                </div>
+                
+            </nav>
         </div>
     )
 }
