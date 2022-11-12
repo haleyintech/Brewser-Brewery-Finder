@@ -54,6 +54,7 @@ export default function ReviewCard(props) {
         <div className='review-body card-body' >
             <h5 className='review-title card-title'><Link to={"/beer-info?" + reviewedBeer.beerId}>{reviewedBeer.name}</Link></h5>
             <Rating icon={<FilledBeerIcon />} emptyIcon={<EmptyBeerIcon/>} name="read-only" className='review-rating' value={props.rating} readOnly precision={0.5}/>
+            <p className='review-text card-text'>Reviewed By: {owner.username}</p>
             <p className='review-text card-text'>{props.description}</p>
         </div>
     </div>
