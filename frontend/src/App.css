@@ -99,3 +99,18 @@ ul {
   background-color: #5093E2;
 }
 /* End main menu */
+
+/*review related css*/
+
+
+.review {
+  flex-direction: row;
+  margin: 50px;
+}
+
+
+.review-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
