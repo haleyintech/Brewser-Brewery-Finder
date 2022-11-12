@@ -48,6 +48,9 @@ function MyBeers(props) {
             return "0";
         }
     }
+    function redirectToCaller() {
+        window.history.back();
+    }
     // check if current user is brewer
     let breweryId = getBreweryId();
     let isBrewer = false;
@@ -62,27 +65,33 @@ function MyBeers(props) {
     return (
         <div>
             <MainMenu />
-            <div className="buttonContainer m-2">
-                <h1>Beer List</h1>
-                {isBrewer ?
-                    (
-                        <div>
-                            <Link to={"/beer-info?breweryId=" + getBreweryId()}><button className="button" type="button">Add</button></Link>
+            <div className='card m-2'>
+                <div className='card-body'>
+                    <div className="row">
+                        <div className='col'><h1>Beer List</h1></div>
+                        <div className='col d-flex justify-content-end me-3'>
+                            {isBrewer ?
+                                (
+
+                                    <Link to={"/beer-info?breweryId=" + getBreweryId()}><button className="btn btn-primary" type="button">Add</button></Link>
+                                ) : null
+                            }
+                            <button className="btn btn-primary ms-2" type="cancel" onClick={redirectToCaller}>Cancel</button>
                         </div>
-                    ) : null
-                }
-            </div>
-            <div className="row">
-                {
-                    beers.map(beer => {
-                        let link = "/beer-info?" + beer.beerId;
-                        return (
-                            <div>
-                                <h5 className="car-title"><Link to={link}>{beer.name}</Link></h5>
-                            </div>
-                        );
-                    })
-                }
+                    </div>
+                    <div className="row mt-2">
+                        {
+                            beers.map(beer => {
+                                let link = "/beer-info?" + beer.beerId;
+                                return (
+                                    <div>
+                                        <h5 className="card-title"><Link to={link}>{beer.name}</Link></h5>
+                                    </div>
+                                );
+                            })
+                        }
+                    </div>
+                </div>
             </div>
         </div>
     )

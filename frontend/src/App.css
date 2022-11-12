@@ -84,8 +84,8 @@ ul {
   max-height: 150px;
 }
 .brewery-card {
-  max-height: 160px;
-  min-height: 160px;
+  max-height: 190px;
+  min-height: 190px;
   overflow: auto;
 }
 .img-brewery-details {
