@@ -35,6 +35,12 @@ public class ReviewController {
         return reviewDao.getReviewsByBeerId(id);
     }
 
+    @GetMapping(value = "/beer/{id}/average-rating")
+    @ResponseStatus(HttpStatus.OK)
+    public double getAverageRatingOfBeer(@PathVariable Long id) {
+        return reviewDao.getAverageRatingOfBeer(id);
+    }
+
     @GetMapping(value = "users/{id}")
     @ResponseStatus(HttpStatus.OK)
     public List<Review> getReviewsByUserId(Long id) {
@@ -46,6 +52,8 @@ public class ReviewController {
     public List<Review> getCurrentUsersReviews(Principal principal) {
         return reviewDao.getReviewsOfCurrentUser(principal.getName());
     }
+
+
     //Post Requests
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
