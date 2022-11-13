@@ -35,9 +35,9 @@ function BeerCard(props) {
     <div className='card m-2'>
       <div className='card-body'>
         <p>Beer Name: {props.name}</p>
-        <p>Brewery Name:{breweryName}</p>
+        <p>Brewery Name: {breweryName}</p>
         <p>Beer Description: {props.description}</p>
-        <p>Alcohol By Volume (%) = {props.abv}</p>
+        <p>Alcohol By Volume (%) = {props.abv}%</p>
         <p>Beer Type: {props.type}</p>
         <img src={props.imgUrl} />
       </div>
