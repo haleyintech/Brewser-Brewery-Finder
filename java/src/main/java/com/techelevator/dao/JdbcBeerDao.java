@@ -40,6 +40,28 @@ public class JdbcBeerDao implements BeerDao{
         return beer;
     }
 
+    @Override
+    public void updateBeer(Beer beer, Long id) {
+        String sql = "UPDATE beers SET name = ?, description = ?, img_url = ?,abv = ?,type = ? WHERE beer_id = ?;";
+        jdbcTemplate.update(sql,
+                beer.getName(),
+                beer.getDescription(),
+                beer.getImgUrl(),
+                beer.getAbv(),
+                beer.getType(),
+                id);
+    }
+
+    @Override
+    public void deleteBeer(Long id) {
+
+        String deleteBeerReviews = "DELETE FROM reviews where beer_id = ?;";
+        jdbcTemplate.update(deleteBeerReviews,id);
+
+        String sql = "DELETE FROM beers WHERE beer_id = ?;";
+        jdbcTemplate.update(sql,id);
+    }
+
 
     private Beer mapRowToBeer(SqlRowSet results) {
         Beer beer = new Beer();

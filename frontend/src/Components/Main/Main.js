@@ -9,6 +9,7 @@ import Reviews from '../Reviews/Reviews'
 import BeerInfo from '../Beers/BeerInfo'
 import BreweryInfo from '../Breweries/BreweryInfo'
 import ReviewInfo from '../Reviews/ReviewInfo'
+import MyBeers from '../Beers/MyBeers'
 import { addToken, deleteUser } from '../../Redux/actionCreators'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
@@ -62,6 +63,7 @@ class Main extends Component {
                     <Route path='/breweries' component={() => <Breweries />} />
                     <Route path='/brewery-info' component={() => <BreweryInfo />} />
                     <Route path='/beers' component={() => <Beers token={this.props.token.token}/>}/>
+                    <Route path='/mybeers' component={() => <MyBeers/>}/>
                     <Route path='/beer-info' component={() => <BeerInfo />} />
                     <Route path='/reviews' component={() => <Reviews />} />
                     <Route path='/review-info' component={() => <Reviews />} />

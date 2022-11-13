@@ -73,4 +73,44 @@ h1 {
   justify-content: center;
   align-items: center;
 }
+ul {
+  list-style: none;
+  margin:0;
+}
 
+/* for breweries card */
+.img-brewery {
+  max-width: 150px;
+  max-height: 150px;
+}
+.brewery-card {
+  max-height: 190px;
+  min-height: 190px;
+  overflow: auto;
+}
+.img-brewery-details {
+  max-width: 250px;
+  max-height: 250px;
+}
+/* end breweries card */
+/* Main Menu*/
+.mainMenu {
+  background-image: "https://popmenucloud.com/ijhvmzns/3cbcf79f-1811-4f2d-b5d4-17deec46fb76.jpg";
+  background-color: #5093E2;
+}
+/* End main menu */
+
+/*review related css*/
+
+
+.review {
+  flex-direction: row;
+  margin: 50px;
+}
+
+
+.review-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}

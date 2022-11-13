@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { baseUrl } from '../../Shared/baseUrl';
@@ -6,6 +5,7 @@ import { Link } from 'react-router-dom';
 import MainMenu from '../../Shared/MainMenu';
 import { setAuthHeader } from '../../Redux/token';
 import { useSelector } from 'react-redux';
+
 function BeerInfo(props) {
     // initialize beer in state (basis is server:Model Beer)
     const emptyBeer = {
@@ -17,17 +17,21 @@ function BeerInfo(props) {
         "abv": 0,
         "type": ""
     };
+
     const [beer, setBeer] = useState(emptyBeer);
     const [breweryName, setBreweryName] = useState("");
     // get token and current user from redux store
     const token = useSelector(state => state.token.token);
     const user = useSelector(state => state.user);
+
     // set auth token in axios header before loading list of beers
     useEffect(() => {
         setAuthHeader(token);
         getData();
     }, [token]);
+
     useEffect(getBreweryName, [beer]);
+
     async function getData() {
         try {
             // get beer from web api using the query string passed to the page
@@ -49,6 +53,7 @@ function BeerInfo(props) {
             alert(ex);
         }
     }
+
     // update beer in state for each change in every form element
     function handleInputChange(event) {
         event.preventDefault()
@@ -57,6 +62,7 @@ function BeerInfo(props) {
             [event.target.name]: event.target.value
         })
     }
+
     async function handleSubmit(event) {
         // TO DO: validate beer information before sending to server
         event.preventDefault();
@@ -69,6 +75,7 @@ function BeerInfo(props) {
                 // else update the existing record
                 await axios.put(baseUrl + "/beers/" + beer.beerId, beer);
             }
+
             // then redirect to list of beers
             redirectToCaller();
         } catch (ex) {
@@ -86,12 +93,14 @@ function BeerInfo(props) {
                 // else update the existing record
                 await axios.delete(baseUrl + "/beers/" + beer.beerId);
             }
+
             // then redirect to list of beers
             redirectToCaller();
         } catch (ex) {
             alert(ex);
         }
     }
+
     function getBreweryId() {
         if (window.location.search && window.location.search.indexOf("?breweryId=") >= 0) {
             return window.location.search.substring(11);
@@ -99,9 +108,11 @@ function BeerInfo(props) {
             return "0";
         }
     }
+
     function redirectToCaller() {
         window.history.back();
     }
+
     async function getBreweryName() {
         if (beer.breweryId > 0) {
             let response = await axios.get(baseUrl + "/breweries/" + beer.breweryId);
@@ -224,4 +235,5 @@ function BeerInfo(props) {
         </div>
     )
 }
+
 export default BeerInfo;

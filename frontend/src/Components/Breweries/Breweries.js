@@ -40,28 +40,43 @@ function Breweries(props) {
     return (
         <div>
             <MainMenu />
-            <div>Brewery List</div>
-            <div className="buttonContainer">
+            <div className="row ms-2 mt-2">
+                <div className='col'><h1>Brewery List</h1></div>
                 {isAdmin?
                     (
-                        <div>
-                            <Link to="/brewery-info"><button className="button" type="button">Add</button></Link>
+                        <div className='col d-flex justify-content-end me-3'>
+                            <Link to="/brewery-info"><button className="btn btn-primary" type="button">Add</button></Link>
                         </div>
                     ):null
                 }
             </div>
-            <ul>
+            <div className="row">
                 {
                     breweries.map(brewery=>{
                         let link = "/brewery-info?" + brewery.breweryId;
                         return(
-                            <li key={brewery.breweryId}>
-                                <div><Link to={link}>{brewery.name}</Link></div>
-                            </li>
+                            <div className="col-6">
+                                <div className="brewery-card card m-2" key={brewery.breweryId}>
+                                    <div className="card-body">
+                                        <div className="d-flex">
+                                            <div><img className='img-fluid img-brewery rounded' src={brewery.imgUrl}></img></div>
+                                            <div className="ms-2">
+                                                <h5 className="card-title"><Link to={link}>{brewery.name}</Link></h5>
+                                                <div className="card-text">
+                                                <p>Address: {brewery.address}<br/>
+                                                Phone: {brewery.phone}<br/>
+                                                Hours: {brewery.hours}
+                                                </p>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                    </div>
+                                </div>
+                            </div>
                         );
                     })
                 }
-            </ul>
+            </div>
 
         </div>
     )

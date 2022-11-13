@@ -16,4 +16,6 @@ public interface ReviewDao {
     void updateReview(Review review, Long id);
     //Delete Methods
     void deleteReview(Long id);
+
+    double getAverageRatingOfBeer(Long id);
 }

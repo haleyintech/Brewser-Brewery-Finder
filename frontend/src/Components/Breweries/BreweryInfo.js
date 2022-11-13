@@ -17,7 +17,7 @@ function BreweryInfo(props) {
         "email": "",
         "imgUrl": "",
         "hours": "",
-        "isPetFriendly": true
+        "petFriendly": true
     };
 
     const [brewery, setBrewery] = useState(emptyBrewery);
@@ -49,10 +49,13 @@ function BreweryInfo(props) {
 
     // update brewery in state for each change in every form element
     function handleInputChange(event) {
-        event.preventDefault()
+        let value = event.target.value;
+        if (event.target.type && event.target.type === "checkbox") {
+            value = event.target.checked;
+        }
         setBrewery({
             ...brewery,
-            [event.target.name]: event.target.value
+            [event.target.name]: value
         })
     }
 
@@ -70,10 +73,35 @@ function BreweryInfo(props) {
             }
 
             // then redirect to list of breweries
-            window.location = "/breweries";
+            if(user.authorities[0].name==="ROLE_ADMIN") {
+                window.history.back();
+            } else {
+                alert("Saved successfully")
+            }
         } catch (ex) {
             alert(ex);
         }
+    }
+    async function handleDelete(event) {
+        event.preventDefault();
+        try {
+            //delete from server
+            //if id is zero then show an error
+            if (brewery.breweryId === 0) {
+                alert("Brewery id is required for delete")
+            } else {
+                // else update the existing record
+                await axios.delete(baseUrl + "/breweries/" + brewery.breweryId);
+            }
+
+            // then redirect to list of breweries
+            redirectToCaller();
+        } catch (ex) {
+            alert(ex);
+        }
+    }
+    function redirectToCaller() {
+        window.history.back();
     }
     // check if current user can edit the form
     let isEditable = false;
@@ -88,119 +116,136 @@ function BreweryInfo(props) {
     return (
         <div>
             <MainMenu />
-            <div>BreweryInfo component</div>
-            <label className="label">Brewery Name</label>
-            <input
-                type="text"
-                id="name"
-                name="name"
-                className="form-control"
-                placeholder="Brewery Name"
-                v-model="brewery.name"
-                onChange={handleInputChange}
-                value={brewery.name}
-                readOnly={brewery.breweryId!==0}
-            />
-            <label className="label">History</label>
-            <input
-                type="text"
-                id="history"
-                name="history"
-                className="form-control"
-                placeholder="History"
-                v-model="brewery.history"
-                onChange={handleInputChange}
-                value={brewery.history}
-                required
-            />
-            <label className="label">Address</label>
-            <input
-                type="text"
-                id="address"
-                name="address"
-                className="form-control"
-                placeholder="Address"
-                v-model="brewery.address"
-                onChange={handleInputChange}
-                value={brewery.address}
-                required
-            />
-            <label className="label">Phone</label>
-            <input
-                type="text"
-                id="phone"
-                name="phone"
-                className="form-control"
-                placeholder="Phone"
-                v-model="brewery.phone"
-                onChange={handleInputChange}
-                value={brewery.phone}
-                required
-            />
-            <label className="label">Email</label>
-            <input
-                type="email"
-                id="email"
-                name="email"
-                className="form-control"
-                placeholder="Email"
-                v-model="brewery.email"
-                onChange={handleInputChange}
-                value={brewery.email}
-                required
-            />
+            <div className='card m-2'>
+                <div className='card-body'>
+                    <div><h1>Brewery Information</h1></div>
+                    <div className="row">
+                        <div className="col-8">
+                            <label className="label">Brewery Name</label>
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                className="form-control"
+                                placeholder="Brewery Name"
+                                v-model="brewery.name"
+                                onChange={handleInputChange}
+                                value={brewery.name}
+                                readOnly={brewery.breweryId !== 0}
+                            />
 
-            <label className="label">Image</label>
-            <input
-                type="text"
-                id="imgUrl"
-                name="imgUrl"
-                className="form-control"
-                placeholder="Image Url"
-                v-model="brewery.imgUrl"
-                onChange={handleInputChange}
-                value={brewery.imgUrl}
-                required
-            />
-            <label className="label">Hours</label>
-            <input
-                type="text"
-                id="hours"
-                name="hours"
-                className="form-control"
-                placeholder="Hours"
-                v-model="brewery.hours"
-                onChange={handleInputChange}
-                value={brewery.hours}
-                required
-            /> 
-            <div>
-                <input type="checkbox"
-                    id="isPetFriendly"
-                    name="isPetFriendly"
-                    v-model="brewery.isPetFriendly"
-                    onChange={handleInputChange}
-                    value={brewery.isPetFriendly}
-                />
-                <label className="label">Pet Friendly</label>
-            </div>
+                            <label className="label mt-2">Address</label>
+                            <input
+                                type="text"
+                                id="address"
+                                name="address"
+                                className="form-control"
+                                placeholder="Address"
+                                v-model="brewery.address"
+                                onChange={handleInputChange}
+                                value={brewery.address}
+                                required
+                            />
+                            <label className="label mt-2">Phone</label>
+                            <input
+                                type="text"
+                                id="phone"
+                                name="phone"
+                                className="form-control"
+                                placeholder="Phone"
+                                v-model="brewery.phone"
+                                onChange={handleInputChange}
+                                value={brewery.phone}
+                                required
+                            />
+                            <label className="label mt-2">Email</label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                className="form-control"
+                                placeholder="Email"
+                                v-model="brewery.email"
+                                onChange={handleInputChange}
+                                value={brewery.email}
+                                required
+                            />
 
-            <div className="buttonContainer">
-                {isEditable ?
-                    (
-                        <div>
-                            <button className="button" type="submit" onClick={handleSubmit}>Save</button>
+                            <label className="label mt-2">Image</label>
+                            <input
+                                type="text"
+                                id="imgUrl"
+                                name="imgUrl"
+                                className="form-control"
+                                placeholder="Image Url"
+                                v-model="brewery.imgUrl"
+                                onChange={handleInputChange}
+                                value={brewery.imgUrl}
+                                required
+                            />
+                            <label className="label mt-2">Hours</label>
+                            <textarea
+                                id="hours"
+                                name="hours"
+                                className="form-control"
+                                placeholder="Hours"
+                                v-model="brewery.hours"
+                                onChange={handleInputChange}
+                                value={brewery.hours}
+                                rows="2"
+                                required
+                            />
+                            <div className="mt-2">
+                                <input type="checkbox"
+                                    id="petFriendly"
+                                    name="petFriendly"
+                                    className="form-check-input me-2"
+                                    v-model="brewery.petFriendly"
+                                    onChange={handleInputChange}
+                                    checked={brewery.petFriendly}
+                                />
+                                <label className="label">Pet Friendly</label>
+                            </div>
                         </div>
-                    ) : null
-                }
-                <div>
-                    <Link to="/breweries"><button className="button" type="cancel">Cancel</button></Link>
-                </div>
-                <div></div>
-                <div>
-                    <Link to={"/beers?breweryId=" + brewery.breweryId}><button className="button" type="cancel">MyBeers</button></Link>
+                        <div className="col">
+                            <div><img className="img-fluid img-brewery-details rounded" src={brewery.imgUrl} /></div>
+                            <label className="label mt-2">History</label>
+                            <textarea
+                                id="history"
+                                name="history"
+                                className="form-control"
+                                placeholder="History"
+                                v-model="brewery.history"
+                                onChange={handleInputChange}
+                                value={brewery.history}
+                                rows="8"
+                                required
+                            />
+                        </div>
+                    </div>
+                    <div className="buttonContainer mt-3">
+                        {isEditable ?
+                            (
+                                <div>
+                                    <button className="btn btn-primary" type="submit" onClick={handleSubmit}>Save</button>
+                                </div>
+                            ) : null
+                        }
+                        <div>
+                            <button className="btn btn-primary" type="cancel" onClick={redirectToCaller}>Cancel</button>
+                        </div>
+                        <div>
+                            <Link to={"/mybeers?breweryId=" + brewery.breweryId}><button className="btn btn-primary" type="cancel">MyBeers</button></Link>
+                        </div>
+                        {role.name === "ROLE_ADMIN" && brewery.breweryId > 0 ? (
+                            <div className='ms-3'>
+                                <button className="btn btn-primary" type="cancel" onClick={handleDelete}>Delete</button>
+                            </div>
+                        ) : null}
+                    </div>
                 </div>
             </div>
+
         </div>
     )
 }
