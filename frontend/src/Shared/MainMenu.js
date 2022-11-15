@@ -2,6 +2,7 @@ import * as React from 'react';
 import { addToken, deleteUser } from '../Redux/actionCreators'
 import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
+import './MainMenuStyle.css';
 
 const mapStateToProps = state => {
     return {
