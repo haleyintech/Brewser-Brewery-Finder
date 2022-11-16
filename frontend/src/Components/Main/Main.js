@@ -66,7 +66,7 @@ class Main extends Component {
                     <Route path='/mybeers' component={() => <MyBeers/>}/>
                     <Route path='/beer-info' component={() => <BeerInfo />} />
                     <Route path='/reviews' component={() => <Reviews />} />
-                    <Route path='/review-info' component={() => <Reviews />} />
+                    <Route path='/review-info' component={() => <ReviewInfo />} />
                 </Switch>
             </div>
         )

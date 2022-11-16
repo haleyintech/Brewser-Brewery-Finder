@@ -40,6 +40,7 @@ function BeerCard(props) {
         <p>Alcohol By Volume (%) = {props.abv}%</p>
         <p>Beer Type: {props.type}</p>
         <img src={props.imgUrl} />
+        <Link to={"/review-info?beerId=" + props.beerId}><button className="btn btn-primary" type="button">Add Review</button></Link>
       </div>
     </div>
 
