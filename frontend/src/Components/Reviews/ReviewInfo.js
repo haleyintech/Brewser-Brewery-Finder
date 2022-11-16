@@ -32,11 +32,14 @@ function ReviewInfo(props) {
         getBeer()
     }, [token]);
 
-    React.useEffect(()=>{getReview},[review])
 
     async function getBeer() {
         const response = await axios.get(baseUrl + `/beers/${beerId}`)
         setBeer(response.data)
+    }
+
+    async function getUserId() {
+        const response = await axios.get(baseUrl + "/users/id/")
     }
 
     function onRatingChange(event) {
@@ -49,8 +52,10 @@ function ReviewInfo(props) {
     }
 
     function saveReview() {
-
+        
     }
+
+    console.log(review)
 
     return (
         <div>
@@ -58,10 +63,7 @@ function ReviewInfo(props) {
             <form>
                 <label for='rating'>Rate this Beer: </label>
                 <Rating name="rating" icon={<FilledBeerIcon />} emptyIcon={<EmptyBeerIcon />} 
-                defaultValue={0} 
-                precision={1} 
-                
-                 />
+                defaultValue={0} precision={1} value={review.rating} onChange={onRatingChange} />
             </form>
         </div>
     )
