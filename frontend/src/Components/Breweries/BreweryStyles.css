@@ -1,0 +1,17 @@
+.img-brewery {
+  max-width: 150px;
+  max-height: 150px;
+}
+.brewery-card {
+  background: #4F5B62;
+  height: fit-content;
+  width: fit-content;
+  padding: 0 10px 10px;
+  overflow: auto;
+  display: flex;
+}
+.img-brewery-details {
+  max-width: 250px;
+  max-height: 250px;
+}
+

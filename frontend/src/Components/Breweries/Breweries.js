@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import MainMenu from '../../Shared/MainMenu';
 import { setAuthHeader } from '../../Redux/token';
 import { useSelector } from 'react-redux';
+import './BreweryStyles.css';
 
 function Breweries(props) {
     // store list of breweries in state
