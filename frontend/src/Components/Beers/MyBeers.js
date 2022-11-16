@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import MainMenu from '../../Shared/MainMenu';
 import { setAuthHeader } from '../../Redux/token';
 import { useSelector } from 'react-redux';
+import {toast} from 'react-toastify';
+
 /* List existing beers of the Brewery creating a new Beer */
 function MyBeers(props) {
     // store list of beers in state
@@ -17,7 +19,7 @@ function MyBeers(props) {
     useEffect(() => {
         setAuthHeader(token);
         getData();
-    }, [token]);
+    },[token]);
 
     async function getData() {
         try {
@@ -38,7 +40,9 @@ function MyBeers(props) {
             // and save to state
             setBeers(data);
         } catch (ex) {
-            alert(ex);
+            toast.error(ex.message,{
+                position: toast.POSITION.BOTTOM_LEFT
+            });
         }
     }
     function getBreweryId() {
@@ -48,7 +52,8 @@ function MyBeers(props) {
             return "0";
         }
     }
-    function redirectToCaller() {
+    function redirectToCaller(event) {
+        event.preventDefault();
         window.history.back();
     }
     // check if current user is brewer
@@ -77,6 +82,7 @@ function MyBeers(props) {
                                 ) : null
                             }
                             <button className="btn btn-primary ms-2" type="cancel" onClick={redirectToCaller}>Cancel</button>
+                           
                         </div>
                     </div>
                     <div className="row mt-2">
@@ -84,8 +90,8 @@ function MyBeers(props) {
                             beers.map(beer => {
                                 let link = "/beer-info?" + beer.beerId;
                                 return (
-                                    <div>
-                                        <h5 className="card-title"><Link to={link}>{beer.name}</Link></h5>
+                                    <div key={beer.beerId}>
+                                        <h5><Link to={link}>{beer.name}</Link></h5>
                                     </div>
                                 );
                             })

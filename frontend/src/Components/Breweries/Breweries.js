@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import MainMenu from '../../Shared/MainMenu';
 import { setAuthHeader } from '../../Redux/token';
 import { useSelector } from 'react-redux';
+import {toast} from 'react-toastify';
 
 function Breweries(props) {
     // store list of breweries in state
@@ -26,7 +27,9 @@ function Breweries(props) {
             // and save to state
             setBreweries(response.data);
         } catch (ex) {
-            alert(ex);
+            toast.error(ex.message,{
+                position: toast.POSITION.BOTTOM_LEFT
+            });
         }
     }
     // check if current user is administrator
@@ -55,8 +58,8 @@ function Breweries(props) {
                     breweries.map(brewery=>{
                         let link = "/brewery-info?" + brewery.breweryId;
                         return(
-                            <div className="col-6">
-                                <div className="brewery-card card m-2" key={brewery.breweryId}>
+                            <div className="col-6" key={brewery.breweryId}>
+                                <div className="brewery-card card m-2">
                                     <div className="card-body">
                                         <div className="d-flex">
                                             <div><img className='img-fluid img-brewery rounded' src={brewery.imgUrl}></img></div>
