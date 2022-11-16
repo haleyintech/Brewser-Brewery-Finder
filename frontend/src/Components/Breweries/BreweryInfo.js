@@ -194,7 +194,7 @@ function BreweryInfo(props) {
             }
 
             // then redirect to list of breweries
-            redirectToCaller();
+            window.history.back();
         } catch (ex) {
             toast.error(ex.message, {
                 position: toast.POSITION.BOTTOM_LEFT
@@ -245,7 +245,7 @@ function BreweryInfo(props) {
                                     value={brewery.address}
                                     required
                                     maxLength={100}
-                                    readOnly={isEditable}
+                                    readOnly={!isEditable}
                                 />
                                 {(!isFormValid && validationError.address && validationError.address.length > 0) ?
                                     <div className="text-danger small ms-2">{validationError.address}</div> : null
@@ -262,7 +262,7 @@ function BreweryInfo(props) {
                                     value={brewery.phone}
                                     required
                                     maxLength={10}
-                                    readOnly={isEditable}
+                                    readOnly={!isEditable}
                                 />
                                 {(!isFormValid && validationError.phone && validationError.phone.length > 0) ?
                                     <div className="text-danger small ms-2">{validationError.phone}</div> : null
@@ -279,7 +279,7 @@ function BreweryInfo(props) {
                                     value={brewery.email}
                                     required
                                     maxLength={50}
-                                    readOnly={isEditable}
+                                    readOnly={!isEditable}
                                 />
                                 {(!isFormValid && validationError.email && validationError.email.length > 0) ?
                                     <div className="text-danger small ms-2">{validationError.email}</div> : null
@@ -296,7 +296,7 @@ function BreweryInfo(props) {
                                     value={brewery.imgUrl}
                                     required
                                     maxLength={255}
-                                    readOnly={isEditable}
+                                    readOnly={!isEditable}
                                 />
                                 {(!isFormValid && validationError.imgUrl && validationError.imgUrl.length > 0) ?
                                     <div className="text-danger small ms-2">{validationError.imgUrl}</div> : null
@@ -313,7 +313,7 @@ function BreweryInfo(props) {
                                     rows="2"
                                     required
                                     maxLength={255}
-                                    readOnly={isEditable}
+                                    readOnly={!isEditable}
                                 />
                                 {(!isFormValid && validationError.hours && validationError.hours.length > 0) ?
                                     <div className="text-danger small ms-2">{validationError.hours}</div> : null
@@ -326,7 +326,7 @@ function BreweryInfo(props) {
                                         v-model="brewery.petFriendly"
                                         onChange={handleInputChange}
                                         checked={brewery.petFriendly}
-                                        readOnly={isEditable}
+                                        readOnly={!isEditable}
                                     />
                                     <label className="label">Pet Friendly</label>
                                 </div>
@@ -345,7 +345,7 @@ function BreweryInfo(props) {
                                     rows="8"
                                     required
                                     maxLength={100}
-                                    readOnly={isEditable}
+                                    readOnly={!isEditable}
                                 />
                                 {(!isFormValid && validationError.history && validationError.history.length > 0) ?
                                     <div className="text-danger small ms-2">{validationError.history}</div> : null

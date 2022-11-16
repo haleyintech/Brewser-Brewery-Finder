@@ -152,7 +152,7 @@ function BeerInfo(props) {
                 }
 
                 // then redirect to list of beers
-                redirectToCaller();
+                window.history.back();
             } catch (ex) {
                 toast.error(ex.message,{
                     position: toast.POSITION.BOTTOM_LEFT
@@ -178,7 +178,7 @@ function BeerInfo(props) {
                 await axios.delete(baseUrl + "/beers/" + beer.beerId);
             }
             // then redirect to list of beers
-            redirectToCaller();
+            window.history.back();
         } catch (ex) {
             toast.error(ex.message,{
                 position: toast.POSITION.BOTTOM_LEFT
@@ -253,7 +253,7 @@ function BeerInfo(props) {
                                     rows="4"
                                     required
                                     maxLength={255}
-                                    readOnly={isEditable}
+                                    readOnly={!isEditable}
                                 />
                                 {(!isFormValid && validationError.description && validationError.description.length > 0) ?
                                     <div className="text-danger small ms-2">{validationError.description}</div> : null
@@ -270,7 +270,7 @@ function BeerInfo(props) {
                                     value={beer.imgUrl}
                                     required
                                     maxLength={255}
-                                    readOnly={isEditable}
+                                    readOnly={!isEditable}
 
                                 />
                                 {(!isFormValid && validationError.imgUrl && validationError.imgUrl.length > 0) ?
@@ -288,7 +288,7 @@ function BeerInfo(props) {
                                     value={beer.abv}
                                     required
                                     maxLength={6}
-                                    readOnly={isEditable}
+                                    readOnly={!isEditable}
                                 />
                                 {(!isFormValid && validationError.abv && validationError.abv.length > 0) ?
                                     <div className="text-danger small ms-2">{validationError.abv}</div> : null
@@ -305,7 +305,7 @@ function BeerInfo(props) {
                                     value={beer.type}
                                     required
                                     maxLength={50}
-                                    readOnly={isEditable}
+                                    readOnly={!isEditable}
                                 />
                                 {(!isFormValid && validationError.type && validationError.type.length > 0) ?
                                     <div className="text-danger small ms-2">{validationError.type}</div> : null
