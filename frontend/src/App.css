@@ -99,6 +99,11 @@ ul {
 
 /*review related css*/
 
+/*beer-card*/
+.beer-card-img {
+  width: 10%;
+}
+
 .review {
   flex-direction: row;
   margin: 50px;
@@ -110,3 +115,10 @@ ul {
   flex-direction: column;
   justify-content: space-around;
 }
+
+.cr-img {
+  width: 30%;
+}
+
+
+

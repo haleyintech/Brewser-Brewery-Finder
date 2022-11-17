@@ -81,8 +81,14 @@ public class JdbcReviewDao implements ReviewDao {
 
     @Override
     public double getAverageRatingOfBeer(Long id) {
+        double result = 0;
         String sql = "SELECT AVG(rating) as average FROM reviews WHERE beer_id = ?;";
-        return jdbcTemplate.queryForObject(sql,double.class,id);
+        try {
+            result = jdbcTemplate.queryForObject(sql,double.class,id);
+        } catch (NullPointerException e) {
+            System.out.println("No Review has been created for beer with id " + id);
+        }
+        return result;
     }
 
     private Review mapRowToReview(SqlRowSet rs) {

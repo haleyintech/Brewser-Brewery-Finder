@@ -6,6 +6,7 @@ import MainMenu from '../../Shared/MainMenu';
 import { setAuthHeader } from '../../Redux/token';
 import { useSelector } from 'react-redux';
 import {toast} from 'react-toastify';
+import phoneFormat from '../../Shared/phoneFormat';
 import './BreweryStyles.css';
 
 function Breweries(props) {
@@ -68,7 +69,7 @@ function Breweries(props) {
                                                 <h5 className="card-title"><Link to={link}>{brewery.name}</Link></h5>
                                                 <div className="card-text">
                                                 <p>Address: {brewery.address}<br/>
-                                                Phone: {brewery.phone}<br/>
+                                                Phone: {phoneFormat(brewery.phone)}<br/>
                                                 Hours: {brewery.hours}
                                                 </p>
                                                 </div>

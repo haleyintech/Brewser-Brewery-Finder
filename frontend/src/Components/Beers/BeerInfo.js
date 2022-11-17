@@ -333,8 +333,8 @@ function BeerInfo(props) {
                                     <button className="btn btn-primary" type="button" onClick={handleDelete}>Delete</button>
                                 </div>
                             ) : null}
-                            <button className="btn btn-primary ms-2" type="button" onClick={redirectToCaller}>Add Review</button>
-                            <button className="btn btn-primary ms-2" type="button" onClick={redirectToCaller}>View Reviews</button>
+                            <Link to={"/review-info?beerId=" + beer.beerId}><button className="btn btn-primary ms-2" type="button">Add Review</button></Link>
+                            <Link to={"/reviews"}><button className="btn btn-primary ms-2" type="button" >View Reviews</button></Link>
                         </div>
                     </form>
                 </div>
