@@ -25,7 +25,7 @@ function MainMenu(props) {
     return (
         <div className='mainMenu'>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <Link className="navbar-brand ms-2" to="/">Project Name</Link>
+                <Link className="navbar-brand ms-2" to="/breweries">Project Name</Link>
                 <div>
                 <Link to='/breweries'><button className="btn btn-secondary ms-4 me-2" type="button">Breweries</button></Link>
                 <Link to='/beers'><button className="btn btn-secondary me-2" type="button">Beers</button></Link>

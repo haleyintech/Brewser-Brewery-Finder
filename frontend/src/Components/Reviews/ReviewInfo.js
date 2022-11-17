@@ -102,20 +102,26 @@ function ReviewInfo() {
     return (
         <div>
             <MainMenu/>
-            
-                <p className='beer-name'>Beer Name: {beer.name}</p>
-                <p className='brewery-name'>Brewery: {brewery.name}</p>
-            <form className='create-review-form' onSubmit={saveReview}>
-                <label htmlFor='rating'>Rate this Beer: </label>
-                <Rating name="rating" icon={<FilledBeerIcon />} emptyIcon={<EmptyBeerIcon />} 
-                defaultValue={0} precision={1} value={review.rating} onChange={handleOnChange} />
-                <textarea value={review.description} onChange={handleOnChange} name='description' className='review-desc' placeholder='Describe Experience' />
-                <img width='30%' src={beer.imgUrl} />
-                <textarea className='' readOnly value={beer.description} />
-                <button>Create Review</button>                
-            </form>
-                <button onClick={redirectToCaller}>Cancel</button>
+            <div><h1>Add Review</h1></div>
+                          
+                <form className='create-review-container' onSubmit={saveReview}>
+                    <p className='cr-beer-name'>Beer Name: {beer.name}</p>
+                    <p className='cr-brewery-name'>Brewery: {brewery.name}</p>
+                    <label htmlFor='rating'>Rate this Beer: </label>
+                    <Rating className='cr-rating' name="rating" icon={<FilledBeerIcon />} emptyIcon={<EmptyBeerIcon />} 
+                        defaultValue={0} precision={1} value={review.rating} onChange={handleOnChange} />
+                    <br/>                        
+                    <textarea className='cr-review' value={review.description} onChange={handleOnChange} name='description' placeholder='Describe Experience' />   
+                    <br/>                 
+                    <img className='cr-img' src={beer.imgUrl} />
+                    <br/>
+                    <textarea className='cr-description' readOnly value={beer.description} />
+                    <br/>
+                    <button className='cr-btn'>Create Review</button>                      
+                    <button className='cnl-btn' onClick={redirectToCaller}>Cancel</button>              
+                </form>
         </div>
+        
     )
 }
 

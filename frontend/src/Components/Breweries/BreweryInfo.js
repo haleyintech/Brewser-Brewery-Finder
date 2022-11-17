@@ -6,6 +6,7 @@ import MainMenu from '../../Shared/MainMenu';
 import { setAuthHeader } from '../../Redux/token';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify'
+import phoneFormat from '../../Shared/phoneFormat';
 
 function BreweryInfo(props) {
     // initialize brewery in state (basis is server:Model Brewery)
@@ -206,6 +207,8 @@ function BreweryInfo(props) {
         window.history.back();
     }
 
+    
+
     // change display based on access
     return (
         <div>
@@ -259,7 +262,7 @@ function BreweryInfo(props) {
                                     placeholder="Phone"
                                     v-model="brewery.phone"
                                     onChange={handleInputChange}
-                                    value={brewery.phone}
+                                    value={phoneFormat(brewery.phone)}
                                     required
                                     maxLength={10}
                                     readOnly={!isEditable}
