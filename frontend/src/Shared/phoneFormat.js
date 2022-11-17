@@ -6,8 +6,8 @@ export default function phoneFormat(input) {
     } else if(input.length < 10) {
     console.log('was not supplied enough numbers please pass a 10 digit number')
     } else if(input.length > 10) {
-      return 'was supplied too many numbers please pass a 10 digit number'
+      console.log('was supplied too many numbers please pass a 10 digit number')
     }else{
-      return 'something went wrong'
+      console.log('something went wrong')
     }
   }
