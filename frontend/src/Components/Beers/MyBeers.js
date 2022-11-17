@@ -96,16 +96,6 @@ function MyBeers(props) {
                                     <MyBeersCard key={beer.beerId} {...beer}/>
                                 )
                             })
-                            //     let link = "/beer-info?" + beer.beerId;
-                            //     let avgRating = 0;
-                            //     axios.get(baseUrl + `/reviews/beer/${beer.beerId}/average-rating`)
-                            //     return (
-                            //         <div key={beer.beerId}>
-                            //             <h5><Link to={link}>{beer.name}</Link></h5>
-                            //             <Rating className='rating' value={avgRating} precision={1} />
-                            //         </div>
-                            //     );
-                            // })
                         }
                     </div>
                 </div>

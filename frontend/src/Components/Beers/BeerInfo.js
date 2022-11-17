@@ -334,7 +334,7 @@ function BeerInfo(props) {
                                 </div>
                             ) : null}
                             <Link to={"/review-info?beerId=" + beer.beerId}><button className="btn btn-primary ms-2" type="button">Add Review</button></Link>
-                            <button className="btn btn-primary ms-2" type="button" onClick={redirectToCaller}>View Reviews</button>
+                            <Link to={"/reviews"}><button className="btn btn-primary ms-2" type="button" >View Reviews</button></Link>
                         </div>
                     </form>
                 </div>

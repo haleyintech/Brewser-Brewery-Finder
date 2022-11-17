@@ -99,8 +99,6 @@ function ReviewInfo() {
         })
     }
 
-    console.log(review)
-
     return (
         <div>
             <MainMenu/>

@@ -31,6 +31,7 @@ export default function MyBeersCard(props) {
         setBeer(res.data)
     }
 
+    //Gets the Avg rating for each beer, rounded to the nearest integer
      function getAvgRating() {
          axios.get(baseUrl + `/reviews/beer/${props.beerId}/average-rating`)
         .then(res=>{
@@ -47,7 +48,7 @@ export default function MyBeersCard(props) {
         return (
             <div>                
                 <h5><Link to={link}>{props.name}</Link></h5>
-                <Rating readOnly className='rating' value={avg} precision={1} />
+                <Rating icon={<FilledBeerIcon />} emptyIcon={<EmptyBeerIcon/>} readOnly className='rating' value={avg} precision={1} />
             </div>
         );
     
