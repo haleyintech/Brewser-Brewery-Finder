@@ -13,6 +13,8 @@ import MyBeers from '../Beers/MyBeers'
 import { addToken, deleteUser } from '../../Redux/actionCreators'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import {ToastContainer} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 const mapStateToProps = state => {
     return {
@@ -68,6 +70,7 @@ class Main extends Component {
                     <Route path='/reviews' component={() => <Reviews />} />
                     <Route path='/review-info' component={() => <ReviewInfo />} />
                 </Switch>
+                <ToastContainer/>
             </div>
         )
     }

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { baseUrl } from '../../Shared/baseUrl';
-import { Link } from 'react-router-dom';
 import MainMenu from '../../Shared/MainMenu';
+import { Link } from 'react-router-dom';
 import { setAuthHeader } from '../../Redux/token';
 import { useSelector } from 'react-redux';
+import {toast} from 'react-toastify';
 
 function BeerInfo(props) {
     // initialize beer in state (basis is server:Model Beer)
@@ -20,6 +21,10 @@ function BeerInfo(props) {
 
     const [beer, setBeer] = useState(emptyBeer);
     const [breweryName, setBreweryName] = useState("");
+    const [validationError, setValidationError] = useState({});
+    const [isFormValid, setIsFormValid] = useState(true);
+    const [isEditable, setIsEditable] = useState(true);
+
     // get token and current user from redux store
     const token = useSelector(state => state.token.token);
     const user = useSelector(state => state.user);
@@ -30,7 +35,20 @@ function BeerInfo(props) {
         getData();
     }, [token]);
 
-    useEffect(getBreweryName, [beer]);
+    useEffect(() => { getBreweryName() }, [beer]);
+
+    useEffect(()=>{
+        // check if current user can edit the form
+        let editable = false;
+        let role = user.authorities[0]
+        if (role) {
+            if (role.name === "ROLE_ADMIN" ||
+                (role.name === "ROLE_BREWER" && user.breweryId === beer.breweryId)) {
+                editable = true;
+            }
+        }
+        setIsEditable(editable);
+    },[user, beer])
 
     async function getData() {
         try {
@@ -47,10 +65,14 @@ function BeerInfo(props) {
                     setBeer(response.data);
                 }
             } else {
-                alert("Beer id or brewery id required")
+                toast.error("Beer id or brewery id required",{
+                    position: toast.POSITION.BOTTOM_LEFT
+                });
             }
         } catch (ex) {
-            alert(ex);
+            toast.error(ex.message,{
+                position: toast.POSITION.BOTTOM_LEFT
+            });
         }
     }
 
@@ -60,26 +82,86 @@ function BeerInfo(props) {
         setBeer({
             ...beer,
             [event.target.name]: event.target.value
+        });
+        setValidationError({ ...validationError, [event.target.name]: validateField(event.target) });
+    }
+
+    // validate form
+    function formValid() {
+        // get list of fields in the form
+        let fields = document.getElementById("beerForm").elements;
+
+        //for every field validate and get the error message
+        // and save in fieldErrors (eg. fieldErrors.name, fieldErrors.address, etc.)
+        let fieldErrors = {}
+        Array.from(fields).forEach(field => {
+            let error = validateField(field);
+            if (error && error.length > 0) fieldErrors = { ...fieldErrors, [field.name]: error };
         })
+        let errors = Object.values(fieldErrors);
+        let valid = true;
+        errors.forEach((error) => {
+            if (error && error.length > 0) valid = false;
+        });
+        setValidationError(fieldErrors);
+        setIsFormValid(valid);
+        return valid;
+    }
+    // validate every field in the form
+    function validateField(field) {
+        let error = "";
+        switch (field.name) {
+            case "name":
+                if (!field.value || field.value.length === 0) error = "Beer Name is required";
+                break;
+            case "address":
+                if (!field.value || field.value.length === 0) error = "Address is required";
+                break;
+            case "description":
+                if (!field.value || field.value.length === 0) error = "Description is required";
+                break;
+            case "imgUrl":
+                if (!field.value || field.value.length === 0) error = "Image is required";
+                break;
+            case "abv":
+                if (!field.value || field.value.length === 0) {
+                    error = "ABV is required";
+                } else {
+                    if (isNaN(field.value) || !isFinite(field.value)) error = "ABV should be numeric";
+                }
+                break;
+            case "type":
+                if (!field.value || field.value.length === 0) error = "Type is required";
+                break;
+        }
+        return error;
     }
 
     async function handleSubmit(event) {
         // TO DO: validate beer information before sending to server
         event.preventDefault();
-        try {
-            //save to server
-            //if id is zero then create (post) a new beer
-            if (beer.beerId === 0) {
-                await axios.post(baseUrl + "/breweries/" + beer.breweryId, beer);
-            } else {
-                // else update the existing record
-                await axios.put(baseUrl + "/beers/" + beer.beerId, beer);
-            }
+        if (formValid()) {
+            try {
+                //save to server
+                //if id is zero then create (post) a new beer
+                if (beer.beerId === 0) {
+                    await axios.post(baseUrl + "/breweries/" + beer.breweryId, beer);
+                } else {
+                    // else update the existing record
+                    await axios.put(baseUrl + "/beers/" + beer.beerId, beer);
+                }
 
-            // then redirect to list of beers
-            redirectToCaller();
-        } catch (ex) {
-            alert(ex);
+                // then redirect to list of beers
+                window.history.back();
+            } catch (ex) {
+                toast.error(ex.message,{
+                    position: toast.POSITION.BOTTOM_LEFT
+                });
+            }
+        } else {
+            toast.error("Form has validation errors",{
+                position: toast.POSITION.BOTTOM_LEFT
+            });
         }
     }
     async function handleDelete(event) {
@@ -88,16 +170,19 @@ function BeerInfo(props) {
             //delete from server
             //if id is zero then show an error
             if (beer.beerId === 0) {
-                alert("Beer id is required for delete")
+                toast.error("Beer id is required for delete",{
+                    position: toast.POSITION.BOTTOM_LEFT
+                });
             } else {
                 // else update the existing record
                 await axios.delete(baseUrl + "/beers/" + beer.beerId);
             }
-
             // then redirect to list of beers
-            redirectToCaller();
+            window.history.back();
         } catch (ex) {
-            alert(ex);
+            toast.error(ex.message,{
+                position: toast.POSITION.BOTTOM_LEFT
+            });
         }
     }
 
@@ -109,7 +194,8 @@ function BeerInfo(props) {
         }
     }
 
-    function redirectToCaller() {
+    function redirectToCaller(event) {
+        event.preventDefault();
         window.history.back();
     }
 
@@ -119,15 +205,7 @@ function BeerInfo(props) {
             setBreweryName(response.data.name);
         }
     }
-    // check if current user can edit the form
-    let isEditable = false;
-    let role = user.authorities[0]
-    if (role) {
-        if (role.name === "ROLE_ADMIN" ||
-            (role.name === "ROLE_BREWER" && user.breweryId === beer.breweryId)) {
-            isEditable = true;
-        }
-    }
+
     // change display based on access
     return (
         <div>
@@ -135,101 +213,130 @@ function BeerInfo(props) {
             <div className='card m-2'>
                 <div className='card-body'>
                     <div><h1>Beer Information</h1></div>
-                    <div className="row">
-                        <div className='col-8'>
-                            <label className="label">Brewery Name</label>
-                            <input
-                                type="text"
-                                id="breweryName"
-                                name="breweryName"
-                                className="form-control"
-                                value={breweryName}
-                                readOnly={true}
-                            />
-                            <label className="label mt-2">Beer Name</label>
-                            <input
-                                type="text"
-                                id="name"
-                                name="name"
-                                className="form-control"
-                                placeholder="Beer Name"
-                                v-model="beer.name"
-                                onChange={handleInputChange}
-                                value={beer.name}
-                                readOnly={beer.beerId !== 0}
-                            />
-                            <label className="label mt-2">Description</label>
-                            <textarea
-                                id="description"
-                                name="description"
-                                className="form-control"
-                                placeholder="Description"
-                                v-model="beer.description"
-                                onChange={handleInputChange}
-                                value={beer.description}
-                                rows="4"
-                                required
-                            />
-                            <label className="label mt-2">Image</label>
-                            <input
-                                type="text"
-                                id="imgUrl"
-                                name="imgUrl"
-                                className="form-control"
-                                placeholder="Image Url"
-                                v-model="beer.imgUrl"
-                                onChange={handleInputChange}
-                                value={beer.imgUrl}
-                                required
-                            />
-                            <label className="label mt-2">Alcohol by Volume (ABV)</label>
-                            <input
-                                type="text"
-                                id="abv"
-                                name="abv"
-                                className="form-control"
-                                placeholder="ABV"
-                                v-model="beer.abv"
-                                onChange={handleInputChange}
-                                value={beer.abv}
-                                required
-                            />
-                            <label className="label mt-2">Type</label>
-                            <input
-                                type="text"
-                                id="type"
-                                name="type"
-                                className="form-control"
-                                placeholder="Type"
-                                v-model="beer.type"
-                                onChange={handleInputChange}
-                                value={beer.type}
-                                required
-                            />
-                        </div>
-                        <div className='col'>
-                            <div>
-                                <img className="img-fluid img-brewery-details rounded" src={beer.imgUrl} />
+                    <form id="beerForm">
+                        <div className="row">
+                            <div className='col-8'>
+                                <label className="label">Brewery Name</label>
+                                <input
+                                    type="text"
+                                    id="breweryName"
+                                    name="breweryName"
+                                    className="form-control"
+                                    value={breweryName}
+                                    readOnly={true}
+                                />
+                                <label className="label mt-2">Beer Name</label>
+                                <input
+                                    type="text"
+                                    id="name"
+                                    name="name"
+                                    className="form-control"
+                                    placeholder="Beer Name"
+                                    v-model="beer.name"
+                                    onChange={handleInputChange}
+                                    value={beer.name}
+                                    readOnly={beer.beerId !== 0}
+                                    maxLength={50}
+                                />
+                                {(!isFormValid && validationError.name && validationError.name.length > 0) ?
+                                    <div className="text-danger small ms-2">{validationError.name}</div> : null
+                                }
+                                <label className="label mt-2">Description</label>
+                                <textarea
+                                    id="description"
+                                    name="description"
+                                    className="form-control"
+                                    placeholder="Description"
+                                    v-model="beer.description"
+                                    onChange={handleInputChange}
+                                    value={beer.description}
+                                    rows="4"
+                                    required
+                                    maxLength={255}
+                                    readOnly={!isEditable}
+                                />
+                                {(!isFormValid && validationError.description && validationError.description.length > 0) ?
+                                    <div className="text-danger small ms-2">{validationError.description}</div> : null
+                                }
+                                <label className="label mt-2">Image</label>
+                                <input
+                                    type="text"
+                                    id="imgUrl"
+                                    name="imgUrl"
+                                    className="form-control"
+                                    placeholder="Image Url"
+                                    v-model="beer.imgUrl"
+                                    onChange={handleInputChange}
+                                    value={beer.imgUrl}
+                                    required
+                                    maxLength={255}
+                                    readOnly={!isEditable}
+
+                                />
+                                {(!isFormValid && validationError.imgUrl && validationError.imgUrl.length > 0) ?
+                                    <div className="text-danger small ms-2">{validationError.imgUrl}</div> : null
+                                }
+                                <label className="label mt-2">Alcohol by Volume (ABV)</label>
+                                <input
+                                    type="text"
+                                    id="abv"
+                                    name="abv"
+                                    className="form-control"
+                                    placeholder="ABV"
+                                    v-model="beer.abv"
+                                    onChange={handleInputChange}
+                                    value={beer.abv}
+                                    required
+                                    maxLength={6}
+                                    readOnly={!isEditable}
+                                />
+                                {(!isFormValid && validationError.abv && validationError.abv.length > 0) ?
+                                    <div className="text-danger small ms-2">{validationError.abv}</div> : null
+                                }
+                                <label className="label mt-2">Type</label>
+                                <input
+                                    type="text"
+                                    id="type"
+                                    name="type"
+                                    className="form-control"
+                                    placeholder="Type"
+                                    v-model="beer.type"
+                                    onChange={handleInputChange}
+                                    value={beer.type}
+                                    required
+                                    maxLength={50}
+                                    readOnly={!isEditable}
+                                />
+                                {(!isFormValid && validationError.type && validationError.type.length > 0) ?
+                                    <div className="text-danger small ms-2">{validationError.type}</div> : null
+                                }
                             </div>
-                        </div>
-                    </div>
-                    <div className="buttonContainer mt-3">
-                        {isEditable ?
-                            (
+                            <div className='col'>
                                 <div>
-                                    <button className="btn btn-primary" type="submit" onClick={handleSubmit}>Save</button>
+                                    <img className="img-fluid img-brewery-details rounded" src={beer.imgUrl} />
                                 </div>
-                            ) : null
-                        }
-                        <div>
-                            <button className="btn btn-primary" type="cancel" onClick={redirectToCaller}>Cancel</button>
-                        </div>
-                        {isEditable && beer.beerId > 0 ? (
-                            <div className='ms-3'>
-                                <button className="btn btn-primary" type="cancel" onClick={handleDelete}>Delete</button>
                             </div>
-                        ) : null}
-                    </div>
+                        </div>
+                        <div className="buttonContainer mt-3">
+                            {isEditable ?
+                                (
+                                    <div>
+                                        <button className="btn btn-primary" type="submit" onClick={handleSubmit}>Save</button>
+                                    </div>
+                                ) : null
+                            }
+                            <div>
+                                <button className="btn btn-primary" type="cancel" onClick={redirectToCaller}>Cancel</button>
+                            </div>
+                            {isEditable && beer.beerId > 0 ? (
+                                <div className='ms-3'>
+                                    <button className="btn btn-primary" type="button" onClick={handleDelete}>Delete</button>
+                                </div>
+                            ) : null}
+                            <button className="btn btn-primary ms-2" type="button" onClick={redirectToCaller}>Add Review</button>
+                            <button className="btn btn-primary ms-2" type="button" onClick={redirectToCaller}>View Reviews</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
