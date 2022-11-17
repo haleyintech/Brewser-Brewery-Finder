@@ -6,6 +6,10 @@ import MainMenu from '../../Shared/MainMenu';
 import { setAuthHeader } from '../../Redux/token';
 import { useSelector } from 'react-redux';
 import {toast} from 'react-toastify';
+import MyBeersCard from './MyBeersCard';
+import Rating from '@mui/material/Rating';
+import FilledBeerIcon from '../../assets/FilledBeerIcon';
+import EmptyBeerIcon from '../../assets/EmptyBeerIcon';
 
 /* List existing beers of the Brewery creating a new Beer */
 function MyBeers(props) {
@@ -88,13 +92,20 @@ function MyBeers(props) {
                     <div className="row mt-2">
                         {
                             beers.map(beer => {
-                                let link = "/beer-info?" + beer.beerId;
                                 return (
-                                    <div key={beer.beerId}>
-                                        <h5><Link to={link}>{beer.name}</Link></h5>
-                                    </div>
-                                );
+                                    <MyBeersCard key={beer.beerId} {...beer}/>
+                                )
                             })
+                            //     let link = "/beer-info?" + beer.beerId;
+                            //     let avgRating = 0;
+                            //     axios.get(baseUrl + `/reviews/beer/${beer.beerId}/average-rating`)
+                            //     return (
+                            //         <div key={beer.beerId}>
+                            //             <h5><Link to={link}>{beer.name}</Link></h5>
+                            //             <Rating className='rating' value={avgRating} precision={1} />
+                            //         </div>
+                            //     );
+                            // })
                         }
                     </div>
                 </div>
