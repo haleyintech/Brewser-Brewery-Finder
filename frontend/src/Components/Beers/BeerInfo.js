@@ -252,7 +252,7 @@ function BeerInfo(props) {
                                     value={beer.description}
                                     rows="4"
                                     required
-                                    maxLength={255}
+                                    maxLength={1000}
                                     readOnly={!isEditable}
                                 />
                                 {(!isFormValid && validationError.description && validationError.description.length > 0) ?

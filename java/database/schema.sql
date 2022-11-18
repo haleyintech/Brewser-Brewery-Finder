@@ -37,7 +37,7 @@ CREATE TABLE beers (
     beer_id SERIAL NOT NULL,    
     brewery_id bigint NOT NULL REFERENCES breweries (brewery_id),
     name varchar(50) NOT NULL UNIQUE,
-    description varchar(255) NOT NULL,
+    description varchar(1000) NOT NULL,
     img_url varchar(255) NOT NULL,
     abv decimal NOT NULL,
     type varchar (50),
