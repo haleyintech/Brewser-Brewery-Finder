@@ -262,7 +262,7 @@ function BreweryInfo(props) {
                                     placeholder="Phone"
                                     v-model="brewery.phone"
                                     onChange={handleInputChange}
-                                    value={phoneFormat(brewery.phone)}
+                                    value={brewery.phone}
                                     required
                                     maxLength={10}
                                     readOnly={!isEditable}
@@ -347,7 +347,7 @@ function BreweryInfo(props) {
                                     value={brewery.history}
                                     rows="8"
                                     required
-                                    maxLength={100}
+                                    maxLength={1000}
                                     readOnly={!isEditable}
                                 />
                                 {(!isFormValid && validationError.history && validationError.history.length > 0) ?
