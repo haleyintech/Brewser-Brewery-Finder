@@ -88,9 +88,9 @@ Wednesday: 4–10PM',true);
 INSERT into beers(brewery_id,name,description,img_url,abv,type) VALUES (10000000,'Wolfsburg', 'Traditional German Pilsner with a little bit extra because why not?', 'https://assets.untappd.com/photos/2022_08_20/ce7669c9937f9e5b9bf2e01f90351fea_raw.jpg',5.1,'Pilsner');
 
 --user insert
-INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
-INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
-INSERT INTO users (username,password_hash,brewery_id,role) VALUES ('brewer','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC',(SELECT brewery_id from breweries WHERE name='Local Ties Brewing Company'),'ROLE_BREWER');
+INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$10$n/2wbjc/dRZbix6PKyF0WeVIWSDE.yv27ZcGiFOboLVM2qkKaqpVS','ROLE_USER');
+INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$10$n/2wbjc/dRZbix6PKyF0WeVIWSDE.yv27ZcGiFOboLVM2qkKaqpVS','ROLE_ADMIN');
+INSERT INTO users (username,password_hash,brewery_id,role) VALUES ('brewer','$2a$10$n/2wbjc/dRZbix6PKyF0WeVIWSDE.yv27ZcGiFOboLVM2qkKaqpVS',(SELECT brewery_id from breweries WHERE name='Local Ties Brewing Company'),'ROLE_BREWER');
 
 
 --review insert
