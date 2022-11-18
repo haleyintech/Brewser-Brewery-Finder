@@ -367,7 +367,7 @@ function BreweryInfo(props) {
                                 <button className="btn btn-primary" type="cancel" onClick={redirectToCaller}>Cancel</button>
                             </div>
                             <div>
-                                <Link to={"/mybeers?breweryId=" + brewery.breweryId}><button className="btn btn-primary" type="cancel">MyBeers</button></Link>
+                                <Link to={"/mybeers?breweryId=" + brewery.breweryId}><button className="btn btn-primary" type="cancel">Our Beers</button></Link>
                             </div>
                             {user.authorities[0].name === "ROLE_ADMIN" && brewery.breweryId > 0 ? (
                                 <div className='ms-3'>
