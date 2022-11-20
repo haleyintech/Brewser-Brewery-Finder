@@ -1,22 +1,33 @@
 .mainMenu {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    padding: 17px 30px;
-    gap: 10px;
-    width: max-content;
-    height: max-content;
-  }
-.btn {
-    width: fit-content;
-    height: fit-content;
-    /* Text */
-    background: #4F5B62;
-    border: 1px solid #EEEEEE;
-    border-radius: 4px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 17px 30px;
+  gap: 10px;
+  margin: 0px;
+  width: 100%;
+  height: min-content;
 }
-
-
-
-
-
+.nav-logo {
+  align-self: center;
+  font-weight: bold;
+  font-size: 1.1em;
+  color: var(--nav-logo);
+  text-decoration: none;
+}
+.nav-btn {
+  background: #C5A880;
+            font-size: 16px;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: black;
+            border-radius: 1rem;
+            border-color: #532E1C;
+            box-shadow: 0 3px 0px #532E1C;
+            display: inline-block;
+            transition: all .2s;
+            position: relative;
+            padding: 10px 16px;
+            top: 0;
+  margin: 5px 5px;
+}

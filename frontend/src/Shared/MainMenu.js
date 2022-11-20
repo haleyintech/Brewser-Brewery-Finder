@@ -24,13 +24,13 @@ function MainMenu(props) {
     }
     return (
         <div className='mainMenu'>
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <Link className="navbar-brand ms-2" to="/breweries">Project Name</Link>
+            <nav className="mainMenu">
+                <Link className="nav-logo" to="/breweries">Brew-ster</Link>
                 <div>
-                <Link to='/breweries'><button className="btn btn-secondary ms-4 me-2" type="button">Breweries</button></Link>
-                <Link to='/beers'><button className="btn btn-secondary me-2" type="button">Beers</button></Link>
-                <Link to='/reviews'><button className="btn btn-secondary me-2" type="button">Reviews</button></Link>
-                <button className="btn btn-secondary ms-2 me-2" type="button" onClick={handleLogout}>Logout</button>
+                <Link to='/breweries'><button className="nav-btn" type="button">Breweries</button></Link>
+                <Link to='/beers'><button className="nav-btn" type="button">Beers</button></Link>
+                <Link to='/reviews'><button className="nav-btn" type="button">Reviews</button></Link>
+                <button className="nav-btn" type="button" onClick={handleLogout}>Logout</button>
                 </div>
                 
             </nav>

@@ -14,4 +14,18 @@
   max-width: 250px;
   max-height: 250px;
 }
+.btn {
+  display: inline-block;
+  background-color: #C5A880;
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: black;
+  text-align: center;
+  border-radius: 1rem;
+  border-color: #532E1C;
+  padding: 5px 10px;
+  box-shadow: 0 3px 0px #532E1C;
+}
+
 
