@@ -5,58 +5,88 @@
 .radio-button {
   margin-right: 10px;
 }
-.login-box {
-  min-width: 350px;
-  border-style: solid;
-  border-color: lightgray;
-  border-width: 1px;
-  border-radius: 20px;
-  padding: 30px;
-  row-gap: 20px;
+
+/* Existing Login CSS */
+h1 {
+  text-align: center;
+  margin: auto;
+  font-family: 'Montagu Slab', serif;
+  font-weight: 400;
+  font-size: 1.75rem;
+}
+h2 {
+  text-align: left;
+  margin: auto;
+  font-family: 'Montagu Slab', serif;
+  font-weight: 300;
+  font-size: 1rem;
+}
+
+body {
+  font-family:'DM Sans', sans-serif;
+}
+.sign-in-btn {
+  background: #C5A880;
+  font-size: 16px;
+  text-transform: lowercase;
+  font-weight: bold;
+  color: black;
+  border-radius: none;
+  border-color: #532E1C;
+  display: inline-block;
+  padding: 5px 16px;
+  margin: 10px;
+}
+.sign-in-btn:hover {
+  background-color: #532E1C;
+  color: #C5A880;
 }
 .login-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  min-height: 100%;
-}
-.register-box {
-  min-width: 350px;
+  margin: auto;
+  background-image: url(https://media.giphy.com/media/xTiTny1nYrk4cQUQ4U/giphy.gif);
+  width: max-content;
+  max-height: 17rem;
   border-style: solid;
-  border-color: lightgray;
-  border-width: 1px;
-  border-radius: 20px;
+  border-color: #532E1C;
+  border-width: 3px;
+  border-radius: 12px;
   padding: 30px;
-  row-gap: 20px;
+}
+.login-box {
+  margin: auto;
+  max-height: 80%;
+  max-width: 80%;
+}
+
+
+
+/* Existing Login End */
+
+/* Registering New Account */
+
+.register-box {
+  width: auto;
+  height: 125%;
 }
 .register-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin: auto;
+  background-image: url(https://apostrophelookbooks.s3.amazonaws.com/gm_624dc2a1-9d3c-488a-8da4-459eac110003.gif);
+  width: max-content;
+  max-height: 17rem;
+  border-style: solid;
+  border-color: #532E1C;
+  border-width: 3px;
+  border-radius: 12px;
+  padding: 30px;
 }
+
+/* Registering New Account */
+
 ul {
   list-style: none;
   margin:0;
 }
 
-/* for breweries card */
-/* Moved to BreweryStyles.css and edited, original CSS below */
-/* .img-brewery {
-  max-width: 150px;
-  max-height: 150px;
-}
-.brewery-card {
-  max-height: 190px;
-  min-height: 190px;
-  overflow: auto;
-}
-.img-brewery-details {
-  max-width: 250px;
-  max-height: 250px;
-} */
-
-/* end breweries card */
 
 /*review related css*/
 

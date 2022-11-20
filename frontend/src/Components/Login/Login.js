@@ -5,8 +5,8 @@ import {withRouter} from 'react-router-dom'
 import {addToken, addUser} from '../../Redux/actionCreators'
 import {baseUrl} from '../../Shared/baseUrl'
 import axios from 'axios'
-
-
+import "../../App.css";
+import MainMenu from '../../Shared/MainMenu';
 
 const mapDispatchToProps = (dispatch) => ({
     addToken: () =>  dispatch(addToken()),
@@ -45,32 +45,36 @@ class Login extends Component {
 
     render(){
         return(
-            <div>
-                <h1>Please Sign In</h1>
-                <label class="sr-only">Username</label>
+            <div><MainMenu />
+            <div class="login-container">
+            <h1>Sign in for tasty BREWs</h1>
+            <div class="login-box">
+                <label class="signin-text">Username</label>
                 <input
                     type="text"
                     id="username"
                     name="username"
                     class="form-control"
-                    placeholder="Username"
+                    placeholder=""
                     v-model="user.username"
                     onChange={this.handleInputChange}
                     required
                 />
-                <label class="sr-only">Password</label>
+                <label class="signin-text">Password</label>
                 <input
                     type="password"
                     id="password"
                     name="password"
                     class="form-control"
-                    placeholder="Password"
+                    placeholder=""
                     v-model="user.password"
                     onChange={this.handleInputChange}
                     required
                 />
-                <Link to="/register">Need an account?</Link>
-                <button type="submit" onClick={this.handleLogin}>Sign in</button>
+                <button class="sign-in-btn" type="submit" onClick={this.handleLogin}>Sign in</button>
+                <Link to="/register"><button class="sign-in-btn" type="submit">Create account</button></Link>
+            </div>
+            </div>
             </div>
         )
     }

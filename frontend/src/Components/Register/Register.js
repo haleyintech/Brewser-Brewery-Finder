@@ -2,6 +2,8 @@ import axios from 'axios'
 import React from 'react'
 import {Link} from 'react-router-dom'
 import {baseUrl} from '../../Shared/baseUrl'
+import "../../App.css";
+import MainMenu from '../../Shared/MainMenu';
 
 export default function Register() {
     const [formData, setFormData] = React.useState({
@@ -60,10 +62,12 @@ export default function Register() {
     console.log(formData)
 
     return (
-        <div>
-            <h1>Create Account</h1>
+        <div><MainMenu />
+        <h1>Create New Account</h1>
+        <div class="register-container">
+            <div class="register-box">
             <fieldset className='experience'>
-                <legend>Choose your Experience</legend>
+                <p>Beer Lovers for most, Brewer for brewery business admins.</p>
                 <label>
                     <input className="experience--radio" type="radio" name="role" value="USER"
                         onChange={handleInputChange}
@@ -104,9 +108,12 @@ export default function Register() {
             <input type="password" id="password-confirm" name="confirmPassword" class="form-control" placeholder="Confirm Password" v-model="user.password"
                 onChange={handleInputChange}
                 required/>
-            <Link to="/login">Have an account?</Link>
-            <button type="submit"
-                onClick={handleSubmit}>Sign in</button>
+                            <button class="sign-in-btn" type="submit"
+                onClick={handleSubmit}>create account</button>
+            <Link to="/login"><button class="sign-in-btn">back to login?</button></Link>
+
+        </div>
+        </div>
         </div>
     )
 }
