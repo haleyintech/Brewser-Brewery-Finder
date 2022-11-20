@@ -46,7 +46,7 @@ function Breweries(props) {
                 {isAdmin?
                     (
                         <div className='col d-flex justify-content-end me-3'>
-                            <Link to="/brewery-info"><button className="btn btn-primary" type="button">Add</button></Link>
+                            <Link to="/brewery-info"><button className="btn" type="button">Add</button></Link>
                         </div>
                     ):null
                 }

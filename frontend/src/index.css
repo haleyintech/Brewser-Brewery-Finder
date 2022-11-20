@@ -1,13 +1,17 @@
+<<<<<<< Updated upstream
+=======
+:root {
+  --bs-body-color: #e6e6e6;
+  --bs-body-bg: #0f0f0f;
+}
+>>>>>>> Stashed changes
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Merriweather', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: 'Merriweather', sans-serif;
 }
+

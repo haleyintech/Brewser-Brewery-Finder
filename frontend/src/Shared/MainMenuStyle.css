@@ -1,20 +1,24 @@
 .mainMenu {
+  font-family: 'Montagu Slab', serif;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+text-transform: uppercase;
+}
+.navbar {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    padding: 17px 30px;
+    flex-wrap: wrap;
+    flex-shrink: 2;
+    padding: 1rem 2rem;
     gap: 10px;
     width: max-content;
     height: max-content;
   }
-.btn {
-    width: fit-content;
-    height: fit-content;
-    /* Text */
-    background: #4F5B62;
-    border: 1px solid #EEEEEE;
-    border-radius: 4px;
-}
+  .navbar-brand {
+    color: #532E1C;
+    font-size: 40px;
+    font-weight: bold;
+  }
 
 
 
