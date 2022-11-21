@@ -34,7 +34,11 @@ export default class Beers extends React.Component {
 
         return (
             <>
-            <MainMenu/> 
-            {this.state.beers.map(beer => {return (<BeerCard {...beer}/>)})}</>)
+            <MainMenu/>
+            <div class='brewery-list-container'>
+                <h1>Beers & Brews</h1>
+            </div>
+            <div class='grid-container-beers'> 
+            {this.state.beers.map(beer => {return (<BeerCard {...beer}/>)})}</div></>)
     }
 }

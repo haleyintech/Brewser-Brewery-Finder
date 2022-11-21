@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import MainMenu from '../../Shared/MainMenu';
 import { setAuthHeader } from '../../Redux/token';
 import { useSelector } from 'react-redux';
+import '../../Components/Breweries/BreweryStyles.css';
+
 function BeerCard(props) {
 
 
@@ -32,17 +34,18 @@ function BeerCard(props) {
   // change display based on access
   return (
 
-    <div className='card m-2'>
-      <div className='card-body'>
-        <p>Beer Name: {props.name}</p>
+    
+      <div className='card-container-beers'>
+        <label className='beer-name'><h1>{props.name}</h1></label>
+        {/* <p>Beer Name: {props.name}</p> */}
         <p>Brewery Name: {breweryName}</p>
         <p>Beer Description: {props.description}</p>
         <p>Alcohol By Volume (%) = {props.abv}%</p>
         <p>Beer Type: {props.type}</p>
-        <img className='beer-card-img' src={props.imgUrl} />
-        <Link to={"/review-info?beerId=" + props.beerId}><button className="btn btn-primary" type="button">Add Review</button></Link>
+        <img className='img-beers' src={props.imgUrl} />
+        <Link to={"/review-info?beerId=" + props.beerId}><button className="btn" type="button">Add Review</button></Link>
       </div>
-    </div>
+   
 
   )
 }

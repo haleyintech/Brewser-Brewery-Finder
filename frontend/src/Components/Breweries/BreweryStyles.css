@@ -1,6 +1,8 @@
-/* Grid Container */
+/* Grid Containers */
+
 .grid-container {
   display: grid;
+  justify-items: center;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 10px;
   margin: 10px 5px;
@@ -12,10 +14,11 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  max-width: 80%;
   background: #532E1C;
   background-image: linear-gradient(180deg , #532e1c, #C5A880);
   border-radius: 30px;
-  margin: 0 10px;
+  margin: 10px;
   height: fit-content;
   padding: 1rem;
   overflow: auto;
@@ -94,4 +97,75 @@
   color: #C5A880;
   text-shadow: 3px 3px 3px  #532E1C;
   text-decoration: none;
+}
+
+/* localhost:300/beers CSS  */
+.grid-container-beers {
+  display: grid;
+  max-width: 1200px;
+  margin: 10px auto;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+
+/* Card CSS */
+.card-container-beers {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  background: #532E1C;
+  background-image: linear-gradient(180deg , #532e1c, #C5A880);
+  border-radius: 30px;
+  padding: 1rem;
+  overflow: auto;
+}
+.beer-name {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: #C5A880;
+  text-shadow: 3px 3px 3px  #532E1C;
+  text-decoration: none;
+}
+
+.img-beers {
+  display: flex;
+  justify-content: center;
+  object-fit: scale-down;
+  height: 150px;
+  width: 100%;
+  overflow:hidden;
+}
+
+
+.view-beers {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-content: center;
+}
+.view-beers > a {
+  font-weight: 600;
+  text-transform: uppercase;
+  color: black;
+  text-decoration: none;
+}
+
+.view-beers > p {
+  display: flex;
+  width: 100%;
+}
+
+.card-text {
+  display: flex;
+  width: 100%;
+}
+.card-text > p {
+  display: flex;
+  text-align: left;
+  margin: auto;
+  padding: 10px;
 }
