@@ -3,7 +3,6 @@ import { addToken, deleteUser } from '../Redux/actionCreators'
 import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
 import './MainMenuStyle.css';
-import '../App.css';
 
 const mapStateToProps = state => {
     return {
@@ -32,7 +31,6 @@ function MainMenu(props) {
                 <Link to='/beers'><button className="nav-btn" type="button">Beers</button></Link>
                 <Link to='/reviews'><button className="nav-btn" type="button">Reviews</button></Link>
                 <button className="nav-btn" type="button" onClick={handleLogout}>Logout</button>
-
                 </div>
                 
             </nav>

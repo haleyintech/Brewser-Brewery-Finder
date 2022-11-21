@@ -1,12 +1,3 @@
-h1 {
-  font-size: larger;
-}
-.btn {
-  /* Text */
-  background: #C5A880;
-  color: #532E1C;
-  border-radius: 16px;
-}
 .buttonContainer {
   display: inline-flex;
   gap: 10px;
@@ -51,26 +42,10 @@ body {
   color: #C5A880;
 }
 .login-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  min-height: 100%;
-}
-
-/* Existing Login End */
-
-/* Registering New Account */
-
-.register-box {
-  width: auto;
-  height: 125%;
-}
-.register-container {
   margin: auto;
-  background-image: url(https://apostrophelookbooks.s3.amazonaws.com/gm_624dc2a1-9d3c-488a-8da4-459eac110003.gif);
+  background-image: url(https://media.giphy.com/media/xTiTny1nYrk4cQUQ4U/giphy.gif);
   width: max-content;
-  max-height: fit-content;
+  max-height: 17rem;
   border-style: solid;
   border-color: #532E1C;
   border-width: 3px;
@@ -105,7 +80,7 @@ body {
   padding: 30px;
 }
 
-/* End of New Account */
+/* Registering New Account */
 
 ul {
   list-style: none;
