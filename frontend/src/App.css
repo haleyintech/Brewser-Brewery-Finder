@@ -45,7 +45,7 @@ body {
   margin: auto;
   background-image: url(https://media.giphy.com/media/xTiTny1nYrk4cQUQ4U/giphy.gif);
   width: max-content;
-  max-height: 17rem;
+  max-height: max-content;
   border-style: solid;
   border-color: #532E1C;
   border-width: 3px;
@@ -57,8 +57,6 @@ body {
   max-height: 80%;
   max-width: 80%;
 }
-
-
 
 /* Existing Login End */
 
@@ -72,7 +70,7 @@ body {
   margin: auto;
   background-image: url(https://apostrophelookbooks.s3.amazonaws.com/gm_624dc2a1-9d3c-488a-8da4-459eac110003.gif);
   width: max-content;
-  max-height: 17rem;
+  max-height: max-content;
   border-style: solid;
   border-color: #532E1C;
   border-width: 3px;
@@ -86,7 +84,6 @@ ul {
   list-style: none;
   margin:0;
 }
-
 
 /*review related css*/
 
@@ -110,6 +107,4 @@ ul {
 .cr-img {
   width: 30%;
 }
-
-
 

@@ -5,8 +5,6 @@ import { Link } from 'react-router-dom';
 import MainMenu from '../../Shared/MainMenu';
 import { setAuthHeader } from '../../Redux/token';
 import { useSelector } from 'react-redux';
-import {toast} from 'react-toastify';
-import phoneFormat from '../../Shared/phoneFormat';
 import './BreweryStyles.css';
 
 function Breweries(props) {
@@ -29,9 +27,7 @@ function Breweries(props) {
             // and save to state
             setBreweries(response.data);
         } catch (ex) {
-            toast.error(ex.message,{
-                position: toast.POSITION.BOTTOM_LEFT
-            });
+            alert(ex);
         }
     }
     // check if current user is administrator
@@ -45,37 +41,37 @@ function Breweries(props) {
     return (
         <div>
             <MainMenu />
-            <div className="row ms-2 mt-2">
-                <div className='col'><h1>Brewery List</h1></div>
+            <div className="">
+                <div className='brewery-list-container'><h1>Brewery List</h1></div>
                 {isAdmin?
                     (
-                        <div className='col d-flex justify-content-end me-3'>
-                            <Link to="/brewery-info"><button className="btn" type="button">Add new</button></Link>
+                        <div className='col d-flex justify-content-end'>
+                        <Link to="/brewery-info"><button className="btn" type="button">Add new</button></Link>
                         </div>
                     ):null
                 }
             </div>
-            <div className="row">
+            <div className="grid-container">
                 {
                     breweries.map(brewery=>{
                         let link = "/brewery-info?" + brewery.breweryId;
                         return(
-                            <div className="col-6" key={brewery.breweryId}>
-                                <div className="brewery-card card m-2">
+                           
+                                <div className="card-container" key={brewery.breweryId}>
                                     <div className="card-body">
-                                        <div className="d-flex">
-                                            <div><img className='img-fluid img-brewery rounded' src={brewery.imgUrl}></img></div>
-                                            <div className="ms-2">
-                                                <h5 className="card-title"><Link to={link}>{brewery.name}</Link></h5>
+                        
+                                            <div className='img-brewery'><img src={brewery.imgUrl}></img></div>
+                                            
+                                                <h5 className="view-beers"><Link to={link}>{brewery.name}</Link></h5>
                                                 <div className="card-text">
                                                 <p>Address: {brewery.address}<br/>
-                                                Phone: {phoneFormat(brewery.phone)}<br/>
+                                                Phone: {brewery.phone}<br/>
                                                 Hours: {brewery.hours}
                                                 </p>
                                                 </div>
-                                            </div>
-                                        </div> 
-                                    </div>
+                                            
+                                    
+                                
                                 </div>
                             </div>
                         );

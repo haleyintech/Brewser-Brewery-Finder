@@ -45,7 +45,8 @@ class Login extends Component {
 
     render(){
         return(
-            <div><MainMenu />
+            <div>
+                <MainMenu />
             <div class="login-container">
             <h1>Sign in for tasty BREWs</h1>
             <div class="login-box">
