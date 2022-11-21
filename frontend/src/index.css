@@ -1,10 +1,11 @@
-<<<<<<< Updated upstream
-=======
 :root {
-  --bs-body-color: #e6e6e6;
-  --bs-body-bg: #0f0f0f;
+
+  --bs-body-color: #E6E6E6;
+  --bs-body-bg: #0F0F0F;
+  height: 100%;
+
 }
->>>>>>> Stashed changes
+
 body {
   margin: 0;
   font-family: 'Merriweather', sans-serif;
