@@ -5,6 +5,7 @@ import axios from 'axios';
 import { setAuthHeader } from '../../Redux/token';
 import { useSelector } from 'react-redux';
 import ReviewCard from './ReviewCard';
+import '../Breweries/BreweryStyles.css'
 
 function Reviews(props) {
 
@@ -41,8 +42,10 @@ function Reviews(props) {
     return (
         <div>
             <MainMenu/>
-            <h3>Beer Reviews</h3>
-            <div className='reviews row'>
+            <div>
+            <h1 class='brewery-list-container'>Beer Reviews</h1></div>
+
+            <div className='grid-container-beers'>
             {reviewElements}
             </div>
         </div>

@@ -38,13 +38,19 @@ function BeerCard(props) {
       <div className='card-container-beers'>
         <label className='beer-name'><h1>{props.name}</h1></label>
         {/* <p>Beer Name: {props.name}</p> */}
-        <p>Brewery Name: {breweryName}</p>
-        <p>Beer Description: {props.description}</p>
-        <p>Alcohol By Volume (%) = {props.abv}%</p>
-        <p>Beer Type: {props.type}</p>
-        <img className='img-beers' src={props.imgUrl} />
-        <Link to={"/review-info?beerId=" + props.beerId}><button className="btn" type="button">Add Review</button></Link>
-      </div>
+        <div class="beer-img-review-container">
+        <img class='img-beers' src={props.imgUrl} />
+        
+        <div class='beer-card-text'>
+        <p>Brewery: {breweryName}</p>
+        <p>Description: {props.description}</p>
+        <p>ABV (%) = {props.abv}%</p>
+        <p>Beer Type: {props.type}</p></div></div>
+
+        <Link to={"/review-info?beerId=" + props.beerId}><button className="btn-reviews" type="button">Add Review</button></Link>
+        </div>
+      
+   
    
 
   )

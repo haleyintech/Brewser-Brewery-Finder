@@ -11,6 +11,7 @@ import FilledBeerIcon from '../../assets/FilledBeerIcon';
 import EmptyBeerIcon from '../../assets/EmptyBeerIcon';
 import { toast } from 'react-toastify'
 import { func } from 'prop-types';
+import '../../Components/Breweries/BreweryStyles.css';
 
 function ReviewInfo() {
 
@@ -165,8 +166,9 @@ function ReviewInfo() {
     return (
         <div>
             <MainMenu />
-            <div><h1>Add Review</h1></div>
-
+            <div class='admin-edits-head'><h1>Add Review</h1></div>
+            <div className='write-review-container'>
+                <div class='inset-review-container'>
             <form id='reviewForm' className='create-review-container' >
                 <p className='cr-beer-name'>Beer Name: {beer.name}</p>
                 <p className='cr-brewery-name'>Brewery: {brewery.name}</p>
@@ -185,16 +187,17 @@ function ReviewInfo() {
                 }
 
                 <br />
-                <img className='cr-img' src={beer.imgUrl} />
-                <br />
-                <textarea className='cr-description' rows='5' required maxLength='255' readOnly value={beer.description} />
+                <img className='img-beers-review' src={beer.imgUrl} />
+                
+                <textarea className='cr-description' rows='3' required maxLength='255' readOnly value={beer.description} />
 
                 <br />
-                <button className='cr-btn' type='submit' onClick={saveReview}>Create Review</button>
-                <button className='cnl-btn' onClick={redirectToCaller}>Cancel</button>
+                <button className='btn-add-reviews' type='submit' onClick={saveReview}>Create Review</button>
+                <button className='btn-add-reviews' onClick={redirectToCaller}>Cancel</button>
             </form>
         </div>
-
+        </div>
+        </div>
     )
 }
 

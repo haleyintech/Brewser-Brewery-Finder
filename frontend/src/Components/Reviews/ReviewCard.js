@@ -49,13 +49,13 @@ export default function ReviewCard(props) {
 
 
   return (
-    <div className='review card' >
-        <img className="img-fluid img-brewery-details" src={reviewedBeer.imgUrl} />
+    <div className='review-container-beers' >
+        <img className="img-beers-reviews" src={reviewedBeer.imgUrl} />
         <div className='review-body card-body' >
-            <h5 className='review-title card-title'><Link to={"/beer-info?" + reviewedBeer.beerId}>{reviewedBeer.name}</Link></h5>
+            <h1 className='beer-name-reviews'><Link to={"/beer-info?" + reviewedBeer.beerId}>{reviewedBeer.name}</Link></h1>
             <Rating icon={<FilledBeerIcon />} emptyIcon={<EmptyBeerIcon/>} name="read-only" className='review-rating' value={props.rating} readOnly precision={0.5}/>
-            <p className='review-text card-text'>Reviewed By: {owner.username}</p>
-            <p className='review-text card-text'>{props.description}</p>
+            <p className='beer-card-text'>Reviewed By: {owner.username}</p>
+            <p className='beer-card-text'>{props.description}</p>
         </div>
     </div>
   )

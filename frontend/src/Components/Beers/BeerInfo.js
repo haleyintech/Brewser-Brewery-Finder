@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { setAuthHeader } from '../../Redux/token';
 import { useSelector } from 'react-redux';
 import {toast} from 'react-toastify';
+import '../../Components/Breweries/BreweryStyles.css';
 
 function BeerInfo(props) {
     // initialize beer in state (basis is server:Model Beer)
@@ -210,9 +211,9 @@ function BeerInfo(props) {
     return (
         <div>
             <MainMenu />
-            <div className='card m-2'>
-                <div className='card-body'>
-                    <div><h1>Beer Information</h1></div>
+            <div className='admin-edits-container'>
+                <div className='#'>
+                    <div className='admin-edits-head'><h1>Beer Information</h1></div>
                     <form id="beerForm">
                         <div className="row">
                             <div className='col-8'>

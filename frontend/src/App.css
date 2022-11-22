@@ -85,26 +85,117 @@ ul {
   margin:0;
 }
 
-/*review related css*/
+/* ----- Administrative Updating/Editing ----- */
+.admin-edits-head {
+  width: 100%;
+  margin-bottom: 10px;
+  text-align: left;
+  font-weight: bolder;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: #C5A880;
+  text-decoration: none;
+  }
 
-/*beer-card*/
-.beer-card-img {
-  width: 10%;
+.admin-edits-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  background: #532E1C;
+  border-radius: 30px;
+  margin: 1rem;
+  height: fit-content;
+  padding: 1rem;
+  overflow: auto;
 }
 
-.review {
+/* Admin Beer List and Edit Info */
+
+.beer-edits-container {
+  display: flex;
   flex-direction: row;
-  margin: 50px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  background: #532E1C;
+  border-radius: 30px;
+  margin: 5rem 15rem;
+  height: fit-content;
+  padding: 1rem;
+  overflow: auto;
 }
 
+.admin-beer-list {
+  display: flex;
+  position: 1;
+  justify-content: center;
+}
 
-.review-body {
+.beers-list {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  width: fit-content;
 }
 
-.cr-img {
-  width: 30%;
+.beer-list-btn {
+  display: flex;
+  background-color: #C5A880;
+  font-size: 16px;
+  text-transform: lowercase;
+  font-family: 'Montagu Slab', serif;
+  font-weight: bold;
+  color: black;
+  text-align: center;
+  justify-self: right;
+  border-radius: 1rem;
+  border-color: #532E1C;
+  padding: 5px 10px;
+  margin: 5px;
 }
 
+/* My Beers edit ends */
+
+/* Add Reviews */
+.write-review-container {
+  display: flex;
+  background: #532E1C;
+  border-radius: 30px;
+  margin-left: 10%;
+  margin-right: 10%;
+  padding: 5%;
+  justify-content: space-between;
+  overflow: auto;
+}
+
+.inset-review-container {
+  flex: 0 0 100%;
+}
+
+.img-beers-review {
+  border-radius: 30px;
+  height: 300px;
+  overflow:hidden;
+}
+form {
+  display: grid;
+  align-content: center;
+}
+.btn-add-reviews {
+  display: absolute;
+  align-self: center;
+  background-color: #C5A880;
+  font-size: 16px;
+  text-transform: lowercase;
+  font-family: 'Montagu Slab', serif;
+  font-weight: bold;
+  max-width: min-content;
+  color: black;
+  text-align: center;
+  border-radius: 1rem;
+  border-color: #532E1C;
+  padding: 5px 10px;
+  box-shadow: 0 3px 0px #532E1C;
+  margin: 5px;
+}

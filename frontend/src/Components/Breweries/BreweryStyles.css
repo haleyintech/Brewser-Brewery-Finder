@@ -90,7 +90,7 @@
 }
 /* Button for Add New brewery on admin log in only */
 
-.brewery-list-container, .brewery-list-container > h1 {
+.brewery-list-container, .brewery-list-container-h1 > h1 {
   align-self: center;
   text-transform: uppercase;
   font-weight: 500;
@@ -99,7 +99,7 @@
   text-decoration: none;
 }
 
-/* localhost:300/beers CSS  */
+/* BEERS AND BEERCARD CSS  */
 .grid-container-beers {
   display: grid;
   max-width: 1200px;
@@ -110,10 +110,9 @@
 
 /* Card CSS */
 .card-container-beers {
-  display: inline-flex;
+  display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
   background: #532E1C;
   background-image: linear-gradient(180deg , #532e1c, #C5A880);
   border-radius: 30px;
@@ -123,6 +122,7 @@
 .beer-name {
   display: grid;
   width: 100%;
+  margin-bottom: 10px;
   justify-content: center;
   text-transform: uppercase;
   font-weight: 500;
@@ -131,41 +131,85 @@
   text-decoration: none;
 }
 
+.beer-img-review-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-area: auto;
+  grid-row: 1;
+  gap: 5px;
+  align-items: center;
+  margin: 5px;
+}
 .img-beers {
+  object-fit: cover;
+  border-radius: 30px;
+  max-height: 250px;
+  width: 100%;
+  overflow:hidden;
+}
+.btn-reviews {
+  display: fixed;
+  background-color: #C5A880;
+  font-size: 16px;
+  text-transform: lowercase;
+  font-family: 'Montagu Slab', serif;
+  font-weight: bold;
+  color: black;
+  text-align: center;
+  border-radius: 1rem;
+  border-color: #532E1C;
+  padding: 5px 10px;
+  box-shadow: 0 3px 0px #532E1C;
+  margin: 5px;
+}
+
+.beer-card-text {
   display: flex;
-  justify-content: center;
-  object-fit: scale-down;
-  height: 150px;
+  flex-direction: column;
+  width: 100%;
+  text-align: left;
+  margin: auto;
+  padding: 5px;
+}
+
+/* BEERS N BREWS ENDS */
+
+/* REVIEWS */
+
+.review-container-beers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  align-items: center;
+  background: #532E1C;
+  background-image: linear-gradient(180deg , #532e1c, #C5A880);
+  border-radius: 30px;
+  padding: 1rem;
+  overflow: auto;
+}
+
+:any-link {
+  text-decoration: none;
+}
+
+.beer-name-reviews, .beer-name-reviews > a, .beer-name-reviews > h1 {
+  width: 100%;
+  margin-bottom: 10px;
+  text-align: left;
+  font-weight: bolder;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: #0F0F0F;
+  text-shadow: 3px 3px 3px  #C5A880;
+  text-decoration: none;
+}
+
+.img-beers-reviews {
+  object-fit: cover;
+  border-radius: 30px;
+  max-height: 300px;
   width: 100%;
   overflow:hidden;
 }
 
-
-.view-beers {
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  align-content: center;
-}
-.view-beers > a {
-  font-weight: 600;
-  text-transform: uppercase;
-  color: black;
-  text-decoration: none;
-}
-
-.view-beers > p {
-  display: flex;
-  width: 100%;
-}
-
-.card-text {
-  display: flex;
-  width: 100%;
-}
-.card-text > p {
-  display: flex;
-  text-align: left;
-  margin: auto;
-  padding: 10px;
-}
+/* Userview Beer Reviews Ends */

@@ -213,9 +213,9 @@ function BreweryInfo(props) {
     return (
         <div>
             <MainMenu />
-            <div className='card m-2'>
-                <div className='card-body'>
-                    <div><h1>Brewery Information</h1></div>
+            <div className='admin-edits-container'>
+                <div className='#'>
+                    <div className='admin-edits-head'><h1>Brewery Information</h1></div>
                     <form id="breweryForm">
                         <div className="row">
                             <div className="col-8">

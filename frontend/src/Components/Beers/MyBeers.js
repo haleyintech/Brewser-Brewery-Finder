@@ -10,6 +10,7 @@ import MyBeersCard from './MyBeersCard';
 import Rating from '@mui/material/Rating';
 import FilledBeerIcon from '../../assets/FilledBeerIcon';
 import EmptyBeerIcon from '../../assets/EmptyBeerIcon';
+import '../../Components/Breweries/BreweryStyles.css';
 
 /* List existing beers of the Brewery creating a new Beer */
 function MyBeers(props) {
@@ -74,22 +75,10 @@ function MyBeers(props) {
     return (
         <div>
             <MainMenu />
-            <div className='card m-2'>
-                <div className='card-body'>
-                    <div className="row">
-                        <div className='col'><h1>Beer List</h1></div>
-                        <div className='col d-flex justify-content-end me-3'>
-                            {isBrewer ?
-                                (
-
-                                    <Link to={"/beer-info?breweryId=" + getBreweryId()}><button className="btn btn-primary" type="button">Add</button></Link>
-                                ) : null
-                            }
-                            <button className="btn btn-primary ms-2" type="cancel" onClick={redirectToCaller}>Cancel</button>
-                           
-                        </div>
-                    </div>
-                    <div className="row mt-2">
+            <div className='beer-edits-container'>
+                        <div className='admin-edits-head'><h1>Beer List</h1></div>
+                        <div className='admin-beer-list'>
+                        <div className="beers-list">
                         {
                             beers.map(beer => {
                                 return (
@@ -98,9 +87,19 @@ function MyBeers(props) {
                             })
                         }
                     </div>
+                       
+                            {isBrewer ?
+                                (
+
+                                    <Link to={"/beer-info?breweryId=" + getBreweryId()}><button className="beer-list-btn" type="button">Add</button></Link>
+                                ) : null
+                            }
+                            <div><button className="beer-list-btn" type="cancel" onClick={redirectToCaller}>Cancel</button></div>
+                           
+                        
+                    </div>
                 </div>
-            </div>
-        </div>
+                </div>
     )
 }
 
