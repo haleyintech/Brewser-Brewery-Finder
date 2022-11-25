@@ -117,8 +117,8 @@ public class JdbcBreweryDao implements BreweryDao {
         String updateUsers = "UPDATE users SET brewery_id = null, role = 'ROLE_USER' WHERE brewery_id = ?;";
         jdbcTemplate.update(updateUsers,id);
         String deleteReviews = "DELETE FROM reviews \n" +
-                "USING beers\n" +
-                "WHERE beers.brewery_id = ?;";
+                "USING beers \n" +
+                "WHERE reviews.beer_id = beers.beer_id AND beers.brewery_id = ?;";
         jdbcTemplate.update(deleteReviews,id);
         String deleteBeers = "DELETE FROM beers WHERE brewery_id = ?;";
         jdbcTemplate.update(deleteBeers,id);
