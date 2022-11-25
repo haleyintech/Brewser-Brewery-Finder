@@ -6,6 +6,7 @@ import MainMenu from '../../Shared/MainMenu';
 import { setAuthHeader } from '../../Redux/token';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify'
+import { toastOptions } from '../../Shared/toastOptions';
 import phoneFormat from '../../Shared/phoneFormat';
 
 function BreweryInfo(props) {
@@ -32,8 +33,10 @@ function BreweryInfo(props) {
 
     // set auth token in axios header before loading list of breweries
     useEffect(() => {
-        setAuthHeader(token);
-        getData();
+        if (token) {
+            setAuthHeader(token);
+            getData();
+        }
     }, [token]);
 
     useEffect(() => {
@@ -47,7 +50,7 @@ function BreweryInfo(props) {
             }
         }
         setIsEditable(editable);
-    },[user, brewery]);
+    }, [user, brewery]);
 
     async function getData() {
         try {
@@ -61,9 +64,7 @@ function BreweryInfo(props) {
             }
             setBrewery(response.data);
         } catch (ex) {
-            toast.error(ex.message, {
-                position: toast.POSITION.BOTTOM_LEFT
-            });
+            toast.error(ex.message, toastOptions);
         }
     }
 
@@ -161,23 +162,18 @@ function BreweryInfo(props) {
                     await axios.put(baseUrl + "/breweries/" + brewery.breweryId, brewery);
                 }
 
+                toast.success("Saved successfully", toastOptions);
                 // then redirect to list of breweries
                 if (user.authorities[0].name === "ROLE_ADMIN") {
                     window.history.back();
-                } else {
-                    toast.success("Saved successfully", {
-                        position: toast.POSITION.BOTTOM_LEFT
-                    });
                 }
+
             } catch (ex) {
-                toast.error(ex.message, {
-                    position: toast.POSITION.BOTTOM_LEFT
-                });
+                toast.error(ex.message, toastOptions);
             }
+
         } else {
-            toast.error("Form has validation errors", {
-                position: toast.POSITION.BOTTOM_LEFT
-            });
+            toast.error("Form has validation errors", toastOptions);
         }
     }
     async function handleDelete(event) {
@@ -186,28 +182,25 @@ function BreweryInfo(props) {
             //delete from server
             //if id is zero then show an error
             if (brewery.breweryId === 0) {
-                toast.error("Brewery id is required for delete", {
-                    position: toast.POSITION.BOTTOM_LEFT
-                });
+                toast.error("Brewery id is required for delete", toastOptions);
             } else {
                 // else update the existing record
                 await axios.delete(baseUrl + "/breweries/" + brewery.breweryId);
             }
-
+            toast.success("Brewery deleted", toastOptions);
             // then redirect to list of breweries
             window.history.back();
         } catch (ex) {
-            toast.error(ex.message, {
-                position: toast.POSITION.BOTTOM_LEFT
-            });
+            toast.error(ex.message, toastOptions);
         }
+
     }
     function redirectToCaller(event) {
         event.preventDefault();
         window.history.back();
     }
 
-    
+
 
     // change display based on access
     return (
@@ -330,6 +323,7 @@ function BreweryInfo(props) {
                                         onChange={handleInputChange}
                                         checked={brewery.petFriendly}
                                         readOnly={!isEditable}
+                                        disabled={!isEditable}
                                     />
                                     <label className="label">Pet Friendly</label>
                                 </div>

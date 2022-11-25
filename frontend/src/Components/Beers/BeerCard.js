@@ -17,8 +17,10 @@ function BeerCard(props) {
 
   // set auth token in axios header before loading list of beers
   useEffect(() => {
-    setAuthHeader(token);
-    getBreweryName();
+    if(token) {
+      setAuthHeader(token);
+      getBreweryName();
+    }
   }, [token]);
 
   // update beer in state for each change in every form element

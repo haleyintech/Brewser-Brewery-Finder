@@ -7,7 +7,8 @@ import Rating from '@mui/material/Rating';
 import { Link } from 'react-router-dom';
 import FilledBeerIcon from '../../assets/FilledBeerIcon';
 import EmptyBeerIcon from '../../assets/EmptyBeerIcon';
-
+import { toast } from 'react-toastify';
+import { toastOptions } from '../../Shared/toastOptions';
 
 export default function ReviewCard(props) {
 
@@ -20,9 +21,11 @@ export default function ReviewCard(props) {
    
 
     React.useEffect(()=>{
-        setAuthHeader(token)
-        getReviewedBeer()
-        getOwner()
+        if(token) {
+            setAuthHeader(token)
+            getReviewedBeer()
+            getOwner()
+        }
     },[token])
 
     async function getReviewedBeer() {
@@ -32,7 +35,7 @@ export default function ReviewCard(props) {
             // and save to state
             setReviewedBeer(response.data);
         } catch (ex) {
-            alert(ex);
+            toast.error(ex.message, toastOptions);
         }
     }
 
@@ -43,7 +46,7 @@ export default function ReviewCard(props) {
             // and save to state
             setOwner(response.data);
         } catch (ex) {
-            alert(ex);
+            toast.error(ex.message, toastOptions);
         }
     }
 

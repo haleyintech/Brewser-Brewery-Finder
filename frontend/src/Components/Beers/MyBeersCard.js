@@ -19,8 +19,10 @@ export default function MyBeersCard(props) {
 
     // set auth token in axios header before loading list of beers
     useEffect(() => {
-        setAuthHeader(token);
-        getData();
+        if(token) {
+            setAuthHeader(token);
+            getData();
+        }
     },[token]);
 
     useEffect(()=>{getAvgRating()},[beer])
