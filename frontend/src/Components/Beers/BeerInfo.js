@@ -5,7 +5,8 @@ import MainMenu from '../../Shared/MainMenu';
 import { Link } from 'react-router-dom';
 import { setAuthHeader } from '../../Redux/token';
 import { useSelector } from 'react-redux';
-import {toast} from 'react-toastify';
+import { toast } from 'react-toastify';
+import { toastOptions } from '../../Shared/toastOptions';
 import '../../Components/Breweries/BreweryStyles.css';
 
 function BeerInfo(props) {
@@ -32,13 +33,15 @@ function BeerInfo(props) {
 
     // set auth token in axios header before loading list of beers
     useEffect(() => {
-        setAuthHeader(token);
-        getData();
+        if (token) {
+            setAuthHeader(token);
+            getData();
+        }
     }, [token]);
 
     useEffect(() => { getBreweryName() }, [beer]);
 
-    useEffect(()=>{
+    useEffect(() => {
         // check if current user can edit the form
         let editable = false;
         let role = user.authorities[0]
@@ -49,7 +52,7 @@ function BeerInfo(props) {
             }
         }
         setIsEditable(editable);
-    },[user, beer])
+    }, [user, beer])
 
     async function getData() {
         try {
@@ -66,14 +69,10 @@ function BeerInfo(props) {
                     setBeer(response.data);
                 }
             } else {
-                toast.error("Beer id or brewery id required",{
-                    position: toast.POSITION.BOTTOM_LEFT
-                });
+                toast.error("Beer id or brewery id required", toastOptions);
             }
         } catch (ex) {
-            toast.error(ex.message,{
-                position: toast.POSITION.BOTTOM_LEFT
-            });
+            toast.error(ex.message,toastOptions);
         }
     }
 
@@ -151,18 +150,16 @@ function BeerInfo(props) {
                     // else update the existing record
                     await axios.put(baseUrl + "/beers/" + beer.beerId, beer);
                 }
-
+                toast.success("Saved successfully", toastOptions);
                 // then redirect to list of beers
                 window.history.back();
+
             } catch (ex) {
-                toast.error(ex.message,{
-                    position: toast.POSITION.BOTTOM_LEFT
-                });
+                toast.error(ex.message, toastOptions);
             }
+
         } else {
-            toast.error("Form has validation errors",{
-                position: toast.POSITION.BOTTOM_LEFT
-            });
+            toast.error("Form has validation errors", toastOptions);
         }
     }
     async function handleDelete(event) {
@@ -171,19 +168,16 @@ function BeerInfo(props) {
             //delete from server
             //if id is zero then show an error
             if (beer.beerId === 0) {
-                toast.error("Beer id is required for delete",{
-                    position: toast.POSITION.BOTTOM_LEFT
-                });
+                toast.error("Beer id is required for delete", toastOptions);
             } else {
                 // else update the existing record
                 await axios.delete(baseUrl + "/beers/" + beer.beerId);
             }
+            toast.success("Beer deleted", toastOptions);
             // then redirect to list of beers
             window.history.back();
         } catch (ex) {
-            toast.error(ex.message,{
-                position: toast.POSITION.BOTTOM_LEFT
-            });
+            toast.error(ex.message, toastOptions);
         }
     }
 
@@ -334,8 +328,12 @@ function BeerInfo(props) {
                                     <button className="btn btn-primary" type="button" onClick={handleDelete}>Delete</button>
                                 </div>
                             ) : null}
-                            <Link to={"/review-info?beerId=" + beer.beerId}><button className="btn btn-primary ms-2" type="button">Add Review</button></Link>
-                            <Link to={"/reviews"}><button className="btn btn-primary ms-2" type="button" >View Reviews</button></Link>
+                            {beer.beerId > 0 ? (
+                                <div>
+                                    <Link to={"/review-info?beerId=" + beer.beerId}><button className="btn btn-primary ms-2" type="button">Add Review</button></Link>
+                                    <Link to={"/reviews?beerId=" + beer.beerId}><button className="btn btn-primary ms-2" type="button" >View Reviews</button></Link>
+                                </div>
+                            ) : null}
                         </div>
                     </form>
                 </div>

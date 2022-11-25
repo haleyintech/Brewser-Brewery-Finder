@@ -4,6 +4,8 @@ import {Link} from 'react-router-dom'
 import {baseUrl} from '../../Shared/baseUrl'
 import "../../App.css";
 import MainMenu from '../../Shared/MainMenu';
+import { toast } from 'react-toastify';
+import { toastOptions } from '../../Shared/toastOptions';
 
 export default function Register() {
     const [formData, setFormData] = React.useState({
@@ -37,25 +39,25 @@ export default function Register() {
             breweryId: formData.breweryId
         }
 
-
+ 
         if (formData.password !== formData.confirmPassword) {
-            alert("Password and Confirm Password must match!")
+            toast.error("Password and Confirm Password must match!",toastOptions);
         } else {
             axios.post(baseUrl + "/register", data).then(response => {
                 console.log(response.status)
                 if (response.status === 201) {
-                    alert("Registration Complete. Return to Login Screen to continue.")
+                    toast.error("Registration Complete.", toastOptions);
+                    window.history.back();
+                    
                 } else {
                     throw new Error("Error")
                 }
             }).catch(error => {
                 console.log(error.response)
-                alert("Invalid Entry. Make sure all fields are filled with proper values.")
+                toast.error("Invalid Entry. Make sure all fields are filled with proper values.", toastOptions);
             })
 
         }
-
-
     }
 
 
