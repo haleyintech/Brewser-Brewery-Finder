@@ -14,7 +14,6 @@ Create the database by running the "[create.sh](http://create.sh/)" script locat
 ```
 cd <project-root>/database/
 ./create.sh
-
 ```
 
 To run the backend application, open the "Java" folder in your preferred IDE, and run the "Application.java" file to start the server.
