@@ -54,3 +54,13 @@ BREW-SER was created by Team Mighty Nine, which consists of the following member
 - [Chris Hurd](https://github.com/hurd1993), Backend
 - [Jamie Hershberger](https://github.com/JamieHershberger), Frontend
 - [Mitchell Nacion](https://github.com/mbnacion2), Frontend
+
+## Screenshots
+![BrewserLogin](https://user-images.githubusercontent.com/103456755/205998499-80bca2b0-864b-4b61-b766-a1f0edcf21d3.png)
+![BrewserCreateAccount](https://user-images.githubusercontent.com/103456755/205998496-36036ce2-7645-454d-849c-20d16ba98fb7.png)
+![BreweryList-Admin](https://user-images.githubusercontent.com/103456755/205998618-fbd8a2de-7301-44b5-a57f-2b06610b9ac4.png)
+![BeersNBrews](https://user-images.githubusercontent.com/103456755/205998632-a068517a-5cb4-4917-93fa-390b29f278f4.png)
+![BeersReviews](https://user-images.githubusercontent.com/103456755/205998650-3362a23c-ffe2-4449-b1da-d047af9aa09d.png)
+
+
+
